@@ -1,0 +1,104 @@
+/**
+ * Vekta Ventanas - Architectural Design Tokens
+ * Inspirado en la vanguardia europea y la alta ingeniería de Renovavent.
+ * Paleta luminosa de alto contraste: Fondo cálido #F6F6F6, Grafito #25282A y Acento Eléctrico #CFEF4D.
+ */
+
+:root {
+  /* --- SUPERFICIES Y FONDOS ARQUITECTÓNICOS --- */
+  --vk-bg-canvas: #f6f6f6; /* Fondo base cálido y luminoso estilo Renovavent */
+  --vk-bg-card: #ffffff; /* Tarjeta blanca pura de máxima nitidez */
+  --vk-bg-surface-subtle: #ededed; /* Gris de apoyo y divisores suaves */
+  --vk-bg-dark: #25282a; /* Grafito antracita profundo para contenedores de impacto */
+  --vk-bg-dark-card: #2f3336; /* Superficie elevada dentro de bloques oscuros */
+  --vk-bg-dark-surface: #1e2022; /* Fondo de footer y barras técnicas */
+
+  /* --- TEXTOS Y CONTRASTES --- */
+  --vk-text-main: #25282a; /* Grafito profundo para lectura impecable */
+  --vk-text-muted: #595e62; /* Gris medio para especificaciones y subtítulos */
+  --vk-text-light: #7e858a; /* Etiquetas secundarias */
+  --vk-text-inverse: #ffffff; /* Texto blanco puro para bloques oscuros */
+  --vk-text-inverse-muted: #b8bfc4; /* Texto secundario sobre fondo oscuro */
+
+  /* --- ACENTOS DE MARCA DE ALTA ENERGÍA (RENOVAVENT INSPIRATION) --- */
+  --vk-accent-lime: #cfef4d; /* Verde lima eléctrico característico */
+  --vk-accent-lime-hover: #bde038; /* Lima activo / hover */
+  --vk-accent-lime-text: #25282a; /* Texto oscuro de máximo contraste sobre lima */
+  --vk-accent-lime-glow: rgba(207, 239, 77, 0.35);
+
+  --vk-accent-cyan: #52c8d8; /* Azul hielo / cian técnico */
+  --vk-accent-cyan-light: #e6f8fb;
+  --vk-accent-cyan-glow: rgba(82, 200, 216, 0.25);
+
+  --vk-primary: #25282a; /* Primario estructural grafito */
+  --vk-primary-hover: #111314;
+
+  --vk-eco-green: #10b981; /* Certificación energética A+++ / Passivhaus */
+  --vk-eco-light: #d1fae5;
+  --vk-gold: #f59e0b; /* Garantía de 15 años y estrellas */
+  --vk-danger: #ef4444; /* Pérdida energética comparativa */
+
+  /* --- BORDES Y SEPARADORES --- */
+  --vk-border-light: rgba(0, 0, 0, 0.08);
+  --vk-border-medium: rgba(0, 0, 0, 0.14);
+  --vk-border-dark: rgba(255, 255, 255, 0.12);
+  --vk-border-lime: #cfef4d;
+  --vk-border-focus: #25282a;
+
+  /* --- TIPOGRAFÍA MODERNA (Outfit + Plus Jakarta Sans) --- */
+  --vk-font-heading:
+    "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --vk-font-body:
+    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  --vk-font-mono: "SF Mono", Monaco, Menlo, "Courier New", monospace;
+
+  --vk-text-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+  --vk-text-sm: clamp(0.875rem, 0.83rem + 0.2vw, 0.9375rem);
+  --vk-text-base: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+  --vk-text-lg: clamp(1.125rem, 1.06rem + 0.3vw, 1.25rem);
+  --vk-text-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --vk-text-2xl: clamp(1.65rem, 1.45rem + 0.8vw, 2.15rem);
+  --vk-text-3xl: clamp(2.1rem, 1.8rem + 1.2vw, 2.85rem);
+  --vk-text-4xl: clamp(2.6rem, 2.2rem + 1.8vw, 3.75rem);
+  --vk-text-hero: clamp(2.75rem, 2.2rem + 2.6vw, 4.85rem);
+
+  /* --- ESPACIADOS Y LAYOUT --- */
+  --vk-space-1: 0.25rem;
+  --vk-space-2: 0.5rem;
+  --vk-space-3: 0.75rem;
+  --vk-space-4: 1rem;
+  --vk-space-6: 1.5rem;
+  --vk-space-8: 2rem;
+  --vk-space-10: 2.5rem;
+  --vk-space-12: 3rem;
+  --vk-space-16: 4rem;
+  --vk-space-20: 5rem;
+  --vk-space-24: 6rem;
+
+  --vk-container-max: 1280px;
+  --vk-container-padding: clamp(1rem, 3.5vw, 2rem);
+
+  /* --- RADIOS DE CURVATURA (PILL & CARDS AMPLIAS) --- */
+  --vk-radius-xs: 6px;
+  --vk-radius-sm: 10px;
+  --vk-radius-md: 16px;
+  --vk-radius-lg: 20px;
+  --vk-radius-xl: 28px; /* Tarjetas principales estilo Renovavent */
+  --vk-radius-pill: 9999px; /* Botones e insignias en píldora */
+
+  /* --- ELEVACIONES Y SOMBRAS SUTILES --- */
+  --vk-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --vk-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03);
+  --vk-shadow-lg:
+    0 12px 28px rgba(0, 0, 0, 0.07), 0 2px 8px rgba(0, 0, 0, 0.04);
+  --vk-shadow-card:
+    0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03);
+  --vk-shadow-dark-card: 0 20px 40px -10px rgba(0, 0, 0, 0.35);
+  --vk-shadow-lime: 0 6px 20px rgba(207, 239, 77, 0.35);
+
+  /* --- TRANSICIONES TÁCTILES --- */
+  --vk-transition-fast: 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  --vk-transition-smooth: 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  --vk-transition-slow: 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}

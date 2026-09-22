@@ -1,0 +1,16 @@
+.DS_Store
+Thumbs.db
+node_modules/
+.wordpress-playground/
+*.log
+vendor-parent/
+
+# Agent configurations & generated skill directories
+.agent/
+.agents/
+.claude/
+.codex/
+.cursor/
+.dsh/
+.gemini/
+.opencode/

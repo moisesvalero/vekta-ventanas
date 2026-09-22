@@ -1,0 +1,28 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/",
+  "preferredVersions": {
+    "php": "8.3",
+    "wp": "latest"
+  },
+  "siteOptions": {
+    "blogname": "Vekta Ventanas — Alta Eficiencia & Aislamiento Acústico",
+    "blogdescription": "Sistemas de Carpintería de PVC Passivhaus y Diseño Arquitectónico"
+  },
+  "steps": [
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "wordpress.org/themes",
+        "slug": "generatepress"
+      },
+      "options": {
+        "activate": false
+      }
+    },
+    {
+      "step": "activateTheme",
+      "themeFolderName": "vekta-ventanas"
+    }
+  ]
+}
