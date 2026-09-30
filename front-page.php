@@ -1,7 +1,9 @@
 <?php
 /**
- * Front Page Template for Vekta Ventanas
- * Web corporativa llave en mano de alta ingeniería arquitectónica en PVC
+ * Template Name: Vekta Systems — Awwwards Architectural Showcase
+ * Front Page Template for Vekta Systems
+ * Bespoke Awwwards / FWA / CSS Design Awards level craftsmanship.
+ * Zero AI clichés: Monolithic, editorial, technical, silent.
  *
  * @package Vekta_Ventanas
  */
@@ -9,948 +11,1272 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-?><!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+?>
+<!DOCTYPE html>
+<html lang="<?php bloginfo( 'language' ); ?>" class="scroll-smooth">
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+	<title><?php bloginfo( 'name' ); ?> — La Ventana Invisible | Perfil Mínimo & Passivhaus</title>
+	
+	<!-- Metadatos SEO Técnicos -->
+	<meta name="description" content="Vekta Systems: Ventanas de PVC de perfil mínimo y estándar Passivhaus. Transmitancia térmica Uw = 0.67 W/m²K y amortiguación acústica certificada de -52 dB.">
+	<meta property="og:title" content="Vekta Systems — La Ventana Invisible | Perfil Mínimo & Passivhaus">
+	<meta property="og:description" content="Ventanas de PVC técnico de alto rendimiento para arquitectura contemporánea. Aislamiento térmico extremo y silencio absoluto.">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/hero-architecture.jpg' ); ?>">
+
+	<!-- Preconexión de Fuentes -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+	<!-- Tailwind CSS CDN para compilación de tokens -->
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						limestone: '#F4F3EE',      /* Caliza Arquitectónica - Fondo Base */
+						graphite: '#121416',       /* Fundición de Grafito - Texto & Monolito */
+						lead: '#61676E',           /* Plomo Cincado - Subtítulos & Cotas */
+						pine: '#1B4332',           /* Pino Abisal - Acento Passivhaus */
+						laser: '#C6FF00',          /* Fósforo Láser - Precisión Métrica */
+						gridline: 'rgba(18, 20, 22, 0.08)',
+						darkline: 'rgba(244, 243, 238, 0.12)'
+					},
+					fontFamily: {
+						syne: ['Syne', 'sans-serif'],
+						sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+						mono: ['"JetBrains Mono"', 'monospace']
+					},
+					letterSpacing: {
+						tighter: '-0.04em',
+						tight: '-0.02em',
+						widest: '0.18em'
+					}
+				}
+			}
+		};
+	</script>
+
+	<!-- GSAP & Lenis CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+	<style>
+		/* Estilos Base y Tipografía Fluida */
+		:root {
+			--bg-limestone: #F4F3EE;
+			--c-graphite: #121416;
+			--c-lead: #61676E;
+			--c-pine: #1B4332;
+			--c-laser: #C6FF00;
+			--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		body {
+			background-color: var(--bg-limestone);
+			color: var(--c-graphite);
+			font-family: 'Plus Jakarta Sans', sans-serif;
+			overflow-x: hidden;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		/* Selección de texto arquitectónica */
+		::selection {
+			background-color: var(--c-graphite);
+			color: var(--c-laser);
+		}
+
+		/* Rejilla de Fondo Modular de 12 Columnas */
+		.architectural-grid {
+			background-size: calc(100% / 12) 100%;
+			background-image: linear-gradient(to right, rgba(18, 20, 22, 0.04) 1px, transparent 1px);
+		}
+
+		.architectural-grid-dark {
+			background-size: calc(100% / 12) 100%;
+			background-image: linear-gradient(to right, rgba(244, 243, 238, 0.05) 1px, transparent 1px);
+		}
+
+		/* Text-stroke para contraste tipográfico extremo */
+		.text-outline {
+			-webkit-text-stroke: 1.5px var(--c-graphite);
+			color: transparent;
+		}
+
+		.text-outline-dark {
+			-webkit-text-stroke: 1.5px var(--bg-limestone);
+			color: transparent;
+		}
+
+		/* Transición de fotografía editorial: reposo monocromático -> color natural y sutil encuadre en hover */
+		.arch-photo-hover {
+			filter: grayscale(100%) contrast(108%) brightness(95%);
+			transform: scale(1);
+			transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+			will-change: filter, transform;
+		}
+
+		.group:hover .arch-photo-hover,
+		.arch-photo-hover:hover {
+			filter: grayscale(0%) contrast(100%) brightness(100%);
+			transform: scale(1.04);
+		}
+
+		/* Cursor Láser Personalizado */
+		@media (hover: hover) and (pointer: fine) {
+			.custom-cursor {
+				display: block;
+			}
+			body {
+				cursor: default;
+			}
+		}
+
+		@media (hover: none) or (pointer: coarse) {
+			.custom-cursor {
+				display: none !important;
+			}
+		}
+
+		/* Desactivación de animaciones para prefers-reduced-motion */
+		@media (prefers-reduced-motion: reduce) {
+			* {
+				animation-duration: 0.01ms !important;
+				animation-iteration-count: 1 !important;
+				transition-duration: 0.01ms !important;
+				scroll-behavior: auto !important;
+			}
+			.custom-cursor {
+				display: none !important;
+			}
+			.split-line {
+				transform: none !important;
+				opacity: 1 !important;
+			}
+		}
+
+		/* Fórmulas y números tabulares */
+		.tabular-nums {
+			font-variant-numeric: tabular-nums;
+		}
+	</style>
 	<?php wp_head(); ?>
 </head>
-<body <?php body_class( 'vekta-front-canvas' ); ?>>
-<?php wp_body_open(); ?>
+<body class="bg-limestone text-graphite relative selection:bg-graphite selection:text-laser antialiased">
 
-<!-- 1. TOP ANNOUNCEMENT BAR -->
-<aside class="vk-top-announcement" aria-label="Aviso comercial y ayudas">
-	<div class="vk-container vk-announcement-container">
-		<div class="vk-announcement-text">
-			<span class="vk-pulse-dot" aria-hidden="true"></span>
-			<strong>Plan Eficiencia Energética 2026:</strong> Hasta <strong>3.000 € de subvención</strong> directa por vivienda. ¡Tramitamos tu ayuda europea gratis!
-		</div>
-		<div class="vk-announcement-contact">
-			<a href="tel:900831240" class="vk-announcement-link">
-				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-				Teléfono Gratuito: <strong>900 831 240</strong>
-			</a>
-			<span class="vk-separator">|</span>
-			<span class="vk-status-open"><span class="vk-pulse-dot mini" aria-hidden="true"></span> Showroom Abierto hoy hasta 19:30</span>
+	<!-- Cursor Láser Micrométrico (Solo Desktop) -->
+	<div id="vk-cursor" class="custom-cursor fixed top-0 left-0 w-8 h-8 pointer-events-none z-50 -translate-x-1/2 -translate-y-1/2 mix-blend-difference hidden md:block">
+		<div class="relative w-full h-full flex items-center justify-center">
+			<div class="w-2 h-2 rounded-full bg-white transition-transform duration-200" id="vk-cursor-dot"></div>
+			<div class="absolute w-8 h-8 border border-white/60 rounded-full scale-100 transition-transform duration-300" id="vk-cursor-ring"></div>
+			<!-- Coordenadas Métrica Técnica -->
+			<span id="vk-cursor-coords" class="absolute left-6 top-6 font-mono text-[9px] text-white tracking-widest whitespace-nowrap opacity-75">X:000 Y:000</span>
 		</div>
 	</div>
-</aside>
 
-<!-- 2. BARRA DE NAVEGACIÓN ARQUITECTÓNICA VEKTA (Landmark banner independiente) -->
-<header class="vk-nav-wrapper" role="banner">
-	<div class="vk-container vk-nav-container">
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="vk-brand-logo" aria-label="Vekta Ventanas - Inicio">
-			<div class="vk-logo-mark">V</div>
-			<div class="vk-brand-text-wrap">
-				<span class="vk-brand-name">VEKTA <span>VENTANAS</span></span>
-				<span class="vk-brand-tagline">Architectural PVC Systems</span>
+	<!-- Preloader / Apertura de Umbral Arquitectónico -->
+	<div id="vk-preloader" class="fixed inset-0 bg-graphite text-limestone z-[100] flex flex-col justify-between p-8 md:p-14 select-none">
+		<div class="flex items-center justify-between font-mono text-xs text-lead border-b border-white/10 pb-4">
+			<div class="flex items-center space-x-2">
+				<span class="w-2 h-2 rounded-full bg-laser animate-pulse"></span>
+				<span class="tracking-widest">VEKTA SYSTEMS // ARCHITECTURAL LAB</span>
 			</div>
-		</a>
-
-		<nav class="vk-nav-links" aria-label="Navegación principal">
-			<a href="#soluciones" class="vk-nav-link">Sistemas & Series</a>
-			<a href="#simulador" class="vk-nav-link">Simulador Acústico</a>
-			<a href="#ingenieria" class="vk-nav-link">Ingeniería</a>
-			<a href="#proyectos" class="vk-nav-link">Obras Realizadas</a>
-			<a href="#opiniones" class="vk-nav-link">Opiniones</a>
-			<a href="#faq" class="vk-nav-link">Preguntas</a>
-			<a href="#contacto" class="vk-nav-link">Showroom</a>
-		</nav>
-
-		<div class="vk-nav-actions">
-			<a href="#configurador" class="vk-btn-primary">
-				<span>Calcular Presupuesto</span>
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-			</a>
-			<!-- Botón Hamburguesa Móvil -->
-			<button type="button" class="vk-mobile-toggle" id="vk-mobile-menu-btn" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="vk-mobile-drawer">
-				<span class="vk-toggle-bar"></span>
-				<span class="vk-toggle-bar"></span>
-				<span class="vk-toggle-bar"></span>
-			</button>
-		</div>
-	</div>
-</header>
-
-<!-- MENÚ MÓVIL DESPLEGABLE (OFF-CANVAS) -->
-<div class="vk-mobile-drawer" id="vk-mobile-drawer" aria-hidden="true">
-	<div class="vk-drawer-header">
-		<span class="vk-brand-name">VEKTA <span>VENTANAS</span></span>
-		<button type="button" class="vk-drawer-close" id="vk-drawer-close-btn" aria-label="Cerrar menú">&times;</button>
-	</div>
-	<nav class="vk-drawer-nav">
-		<a href="#soluciones" class="vk-drawer-link">Sistemas & Series</a>
-		<a href="#simulador" class="vk-drawer-link">Simulador de Aislamiento</a>
-		<a href="#ingenieria" class="vk-drawer-link">Ingeniería & Perfiles</a>
-		<a href="#proyectos" class="vk-drawer-link">Obras Realizadas</a>
-		<a href="#configurador" class="vk-drawer-link">Calcular Presupuesto</a>
-		<a href="#opiniones" class="vk-drawer-link">Opiniones de Clientes</a>
-		<a href="#faq" class="vk-drawer-link">Preguntas Frecuentes</a>
-		<a href="#contacto" class="vk-drawer-link">Showroom Central</a>
-	</nav>
-	<div class="vk-drawer-footer">
-		<a href="tel:900831240" class="vk-btn-primary" style="width: 100%;">Llamar: 900 831 240</a>
-	</div>
-</div>
-
-<main id="primary" class="site-main vk-main-wrapper">
-
-	<!-- 3. HERO SECTION CINEMATOGRÁFICA -->
-	<section class="vk-hero-section">
-		<div class="vk-hero-bg-media" aria-hidden="true">
-			<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85" alt="Vivienda contemporánea con grandes ventanales de PVC Vekta" class="vk-hero-bg-img" loading="eager" />
-			<div class="vk-hero-overlay"></div>
+			<span>MADRID · 40.4168° N, 3.7038° W</span>
 		</div>
 
-		<div class="vk-container vk-hero-inner">
-			<div class="vk-hero-content">
-				<div class="vk-hero-badge-wrap">
-					<span class="vk-badge-pill eco">
-						<span class="vk-pulse-icon">●</span> Passivhaus Certified & A+++ Eficiencia
+		<div class="max-w-4xl">
+			<span class="font-mono text-xs uppercase tracking-widest text-laser block mb-4">CALIBRANDO AISLAMIENTO TÉRMICO Y ACÚSTICO</span>
+			<h2 class="font-syne text-4xl sm:text-6xl md:text-7xl font-bold tracking-tighter uppercase leading-[0.92]">
+				EL SILENCIO<br>ES MATERIA.
+			</h2>
+		</div>
+
+		<div class="flex items-end justify-between border-t border-white/10 pt-6 font-mono text-xs">
+			<div>
+				<span class="block text-lead">ESTÁNDAR PASIVO PASSIVHAUS INSTITUT</span>
+				<span class="text-limestone">DIN EN ISO 10077-1 / UNE-EN 14351-1</span>
+			</div>
+			<div class="text-right">
+				<span class="text-lead block">CALIBRACIÓN</span>
+				<span id="vk-preloader-count" class="font-syne text-3xl md:text-5xl font-bold text-laser tabular-nums">0%</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- CONTENEDOR PRINCIPAL CON LENIS SMOOTH SCROLL -->
+	<div id="smooth-wrapper" class="relative z-10 w-full overflow-hidden">
+
+		<!-- Rejilla Arquitectónica de Fondo (Líneas Tenues) -->
+		<div class="fixed inset-0 pointer-events-none architectural-grid z-0"></div>
+
+		<!-- BARRA SUPERIOR TÉCNICA (Header Arquitectónico) -->
+		<header class="relative z-40 w-full border-b border-graphite/10 bg-limestone/90 backdrop-blur-md transition-colors">
+			<!-- Tira de Estado Superior -->
+			<div class="border-b border-graphite/5 py-2 px-6 md:px-12 flex justify-between items-center font-mono text-[11px] text-lead">
+				<div class="flex items-center space-x-4">
+					<span class="flex items-center space-x-1.5">
+						<span class="w-1.5 h-1.5 rounded-full bg-pine"></span>
+						<span class="text-graphite font-semibold">TALLER CENTRAL MADRID</span>
 					</span>
-					<span class="vk-badge-pill dark">
-						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Sistemas Alemanes Kömmerling® 76/88
-					</span>
+					<span class="hidden sm:inline text-graphite/30">|</span>
+					<span class="hidden sm:inline">PRODUCCIÓN ROBOTIZADA ACTIVA</span>
 				</div>
+				<div class="flex items-center space-x-6">
+					<span class="hidden md:inline">TRANSMITANCIA MÍNIMA: <strong class="text-graphite">Uw 0.67</strong> W/m²K</span>
+					<span class="text-graphite font-semibold">TEL: +34 900 831 240</span>
+				</div>
+			</div>
 
-				<h1 class="vk-hero-title">
-					Ventanas de PVC que transforman tu hogar en un santuario de <span class="text-lime">silencio, luz y confort térmico</span>.
-				</h1>
+			<!-- Barra de Navegación Principal -->
+			<div class="py-4 md:py-6 px-6 md:px-12 flex items-center justify-between">
+				<!-- Logotipo Monolítico -->
+				<a href="#hero" class="group flex items-baseline space-x-2 focus-visible:outline-2 focus-visible:outline-pine" aria-label="Vekta Systems Inicio">
+					<span class="font-syne font-extrabold text-2xl md:text-3xl tracking-tighter text-graphite">VEKTA</span>
+					<span class="font-mono text-xs font-semibold tracking-widest text-lead group-hover:text-pine transition-colors">SYSTEMS</span>
+				</a>
 
-				<p class="vk-hero-lead">
-					Ingeniería de vanguardia con perfiles multicámara de 6 y 7 cámaras estancas, triple acristalamiento bajo emisivo con gas argón y herrajes perimetrales antipalanca. Olvídate del ruido de la calle y ahorra hasta un 65% en calefacción y aire acondicionado.
-				</p>
-
-				<div class="vk-hero-cta-group">
-					<a href="#configurador" class="vk-btn-primary vk-btn-lg">
-						<span>Calcular Presupuesto Online</span>
-						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+				<!-- Enlaces de Sección Asimétricos y Numerados -->
+				<nav class="hidden lg:flex items-center space-x-10 font-mono text-xs tracking-widest uppercase">
+					<a href="#filosofia" class="text-lead hover:text-graphite transition-colors flex items-center space-x-1 py-1 border-b border-transparent hover:border-graphite">
+						<span class="text-lead/50">01</span><span>Filosofía</span>
 					</a>
-					<a href="#simulador" class="vk-btn-ghost vk-btn-lg">
-						<span>Probar Simulador de Ruido</span>
+					<a href="#acustica" class="text-lead hover:text-graphite transition-colors flex items-center space-x-1 py-1 border-b border-transparent hover:border-graphite">
+						<span class="text-lead/50">02</span><span>Freno Acústico</span>
+					</a>
+					<a href="#sistemas" class="text-lead hover:text-graphite transition-colors flex items-center space-x-1 py-1 border-b border-transparent hover:border-graphite">
+						<span class="text-lead/50">03</span><span>Sistemas</span>
+					</a>
+					<a href="#anatomia" class="text-lead hover:text-graphite transition-colors flex items-center space-x-1 py-1 border-b border-transparent hover:border-graphite">
+						<span class="text-lead/50">04</span><span>Anatomía</span>
+					</a>
+					<a href="#simulador" class="text-lead hover:text-graphite transition-colors flex items-center space-x-1 py-1 border-b border-transparent hover:border-graphite">
+						<span class="text-lead/50">05</span><span>Simulador</span>
+					</a>
+				</nav>
+
+				<!-- Botón de Acción Magnético -->
+				<div class="flex items-center space-x-4">
+					<a href="#contacto" class="vk-magnetic-btn inline-flex items-center space-x-3 bg-graphite text-limestone hover:bg-pine px-5 py-3 rounded-none text-xs font-mono uppercase tracking-widest font-semibold transition-all duration-300">
+						<span>Medición Láser</span>
+						<svg class="w-3.5 h-3.5 transform -rotate-45 group-hover:rotate-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+							<path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+						</svg>
 					</a>
 				</div>
+			</div>
+		</header>
 
-				<!-- Stats en vivo -->
-				<div class="vk-hero-stats">
-					<div class="vk-stat-item">
-						<span class="vk-stat-number accent">-52 dB</span>
-						<span class="vk-stat-label">Insonorización acústica máxima</span>
+		<!-- ========================================== -->
+		<!-- SECCIÓN 01: HERO ASIMÉTRICO MONOLÍTICO     -->
+		<!-- ========================================== -->
+		<section id="hero" class="relative min-h-[92vh] flex flex-col justify-between pt-12 md:pt-16 pb-16 px-6 md:px-12 border-b border-graphite/10">
+			<!-- Encabezado Editorial Asimétrico -->
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
+				
+				<!-- Titular Colosal (Syne Display, interlineado apretado) -->
+				<div class="lg:col-span-8">
+					<div class="flex items-center space-x-3 mb-6 font-mono text-xs tracking-widest text-lead uppercase">
+						<span class="w-2.5 h-0.5 bg-graphite"></span>
+						<span>Ingeniería de Ventanas de PVC & Aislamiento Passivhaus</span>
 					</div>
-					<div class="vk-stat-item">
-						<span class="vk-stat-number">0.65 Uw</span>
-						<span class="vk-stat-label">Transmitancia Passivhaus</span>
+
+					<h1 class="font-syne font-extrabold text-[clamp(2.1rem,5.8vw,5.8rem)] leading-[0.92] sm:leading-[0.88] tracking-tighter uppercase text-graphite mb-8">
+						<span class="block overflow-hidden"><span class="hero-split inline-block">LA VENTANA</span></span>
+						<span class="block overflow-hidden"><span class="hero-split inline-block text-outline">INVISIBLE</span></span>
+					</h1>
+
+					<p class="max-w-xl text-lg md:text-xl text-lead leading-relaxed font-light">
+						Perfilería de vista mínima y marcos embutidos que prácticamente desaparecen en la arquitectura. Toda la luz natural exterior con el aislamiento térmico Passivhaus y el silencio acústico más exigente de Europa.
+					</p>
+				</div>
+
+				<!-- Columna Técnica Lateral (Ficha de Parámetros) -->
+				<div class="lg:col-span-4 bg-white/70 backdrop-blur-sm border border-graphite/10 p-6 md:p-8 flex flex-col justify-between">
+					<div class="border-b border-graphite/10 pb-4 mb-6 flex justify-between items-center">
+						<span class="font-mono text-xs uppercase tracking-widest text-graphite font-bold">FICHA DE RENDIMIENTO</span>
+						<span class="font-mono text-[10px] bg-pine text-white px-2 py-0.5 uppercase tracking-wider">Passivhaus Cl. A</span>
 					</div>
-					<div class="vk-stat-item">
-						<span class="vk-stat-number">15 Años</span>
-						<span class="vk-stat-label">Garantía total de fábrica</span>
+
+					<div class="space-y-5 font-mono text-xs">
+						<div class="flex justify-between items-baseline border-b border-graphite/5 pb-2">
+							<span class="text-lead">Transmitancia Térmica</span>
+							<span class="font-bold text-base text-graphite">Uw = 0.67 <span class="text-[10px] font-normal text-lead">W/m²K</span></span>
+						</div>
+						<div class="flex justify-between items-baseline border-b border-graphite/5 pb-2">
+							<span class="text-lead">Atenuación Acústica</span>
+							<span class="font-bold text-base text-pine">Rw = -52 <span class="text-[10px] font-normal text-lead">dB</span></span>
+						</div>
+						<div class="flex justify-between items-baseline border-b border-graphite/5 pb-2">
+							<span class="text-lead">Permeabilidad al Aire</span>
+							<span class="font-bold text-graphite">Clase 4 <span class="text-[10px] font-normal text-lead">(EN 12207)</span></span>
+						</div>
+						<div class="flex justify-between items-baseline">
+							<span class="text-lead">Estanqueidad al Agua</span>
+							<span class="font-bold text-graphite">Clase E1500 <span class="text-[10px] font-normal text-lead">(EN 12208)</span></span>
+						</div>
 					</div>
-					<div class="vk-stat-item">
-						<span class="vk-stat-number accent">1 Día</span>
-						<span class="vk-stat-label">Instalación limpia sin obras</span>
+
+					<div class="mt-8 pt-4 border-t border-graphite/10 flex items-center justify-between text-[11px] font-mono text-lead">
+						<span>CERTIFICACIÓN PHI DARMSTADT</span>
+						<span class="w-2 h-2 rounded-full bg-pine"></span>
 					</div>
 				</div>
 			</div>
 
-			<!-- Tarjeta flotante interactiva de detalle arquitectónico -->
-			<div class="vk-hero-showcase-box">
-				<div class="vk-glass-card">
-					<div class="vk-glass-card-header">
-						<span class="vk-tag-live">VENTANA EN DETALLE</span>
-						<span class="vk-glass-model">Serie Vekta 88 Passivhaus</span>
+			<!-- Composición Fotográfica Asimétrica con Visor de Cotas -->
+			<div class="mt-12 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+				<div class="lg:col-span-9 relative overflow-hidden group">
+					<div class="aspect-[16/8] sm:aspect-[21/9] w-full overflow-hidden bg-graphite">
+						<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/hero-architecture.jpg' ); ?>" 
+							 alt="Vivienda unifamiliar Passivhaus con grandes ventanales de PVC Vekta Systems" 
+							 class="w-full h-full object-cover object-center arch-photo-hover"
+							 loading="eager" />
 					</div>
-					<div class="vk-card-window-photo">
-						<img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="Detalle de ventanales correderos de gran formato Vekta" loading="lazy" />
-						<div class="vk-photo-tag-floating top-left">
-							<span>Triple Vidrio Acústico SilenceCore™</span>
-						</div>
-						<div class="vk-photo-tag-floating bottom-right">
-							<span>Perfil 88mm 7 Cámaras</span>
-						</div>
+					
+					<!-- Marcadores de Cota Arquitectónica sobre la Imagen -->
+					<div class="absolute bottom-4 left-4 bg-graphite/80 backdrop-blur-md text-limestone font-mono text-[10px] px-3 py-1.5 uppercase tracking-widest flex items-center space-x-2">
+						<span class="w-1.5 h-1.5 bg-laser rounded-full"></span>
+						<span>PROYECTO LA MORALEJA // VIDRIO TRIPLE BAJO EMISIVO SOLAR</span>
 					</div>
-					<div class="vk-glass-specs">
-						<div class="vk-spec-item">
-							<span class="spec-label">Atenuación Acústica:</span>
-							<span class="spec-val">-52 dB (Estudio Grabación)</span>
-						</div>
-						<div class="vk-spec-item">
-							<span class="spec-label">Ahorro Energético Anual:</span>
-							<span class="spec-val highlight">+680 €/año</span>
-						</div>
-						<div class="vk-spec-item">
-							<span class="spec-label">Resistencia al Viento:</span>
-							<span class="spec-val">Clase C5 (Huracán 160 km/h)</span>
-						</div>
-					</div>
-					<a href="#configurador" class="vk-btn-primary" style="width: 100%; margin-top: 1.25rem;">Personalizar Medidas &rarr;</a>
+				</div>
+
+				<div class="lg:col-span-3 flex flex-col justify-end space-y-4 font-mono text-xs text-lead">
+					<p class="leading-relaxed border-l-2 border-graphite pl-4">
+						Superficies vidriadas de hasta 4 metros continuos sin puente térmico. Perfilería de 82mm con 7 cámaras desacopladas.
+					</p>
+					<span class="text-[10px] uppercase tracking-widest text-graphite font-bold">MADRID · FABRICACIÓN PROPIA ROBOTIZADA</span>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<!-- 4. TRUST & ALLIANCES LOGO BAR -->
-	<section class="vk-trust-bar" aria-label="Alianzas y certificaciones">
-		<div class="vk-container">
-			<p class="vk-trust-title">Ingeniería certificada con los mejores fabricantes mundiales de carpintería técnica:</p>
-			<div class="vk-partners-grid">
-				<div class="vk-partner-badge">
-					<strong>KÖMMERLING</strong>
-					<span>Perfiles PVC Alemania</span>
-				</div>
-				<div class="vk-partner-badge">
-					<strong>GUARDIAN SUN</strong>
-					<span>Vidrio Control Solar</span>
-				</div>
-				<div class="vk-partner-badge">
-					<strong>ROTO FRANK</strong>
-					<span>Herrajes Seguridad RC2</span>
-				</div>
-				<div class="vk-partner-badge">
-					<strong>PASSIVHAUS INSTITUT</strong>
-					<span>Certificación Edificio Cero</span>
-				</div>
-				<div class="vk-partner-badge">
-					<strong>SOMFY</strong>
-					<span>Motorización Inteligente</span>
-				</div>
-				<div class="vk-partner-badge">
-					<strong>AENOR ISO 9001</strong>
-					<span>Calidad de Fabricación</span>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- 5. SIMULADOR INTERACTIVO DE AISLAMIENTO & EFICIENCIA TÉRMICA -->
-	<section class="vk-simulator-section" id="simulador">
-		<div class="vk-container">
-			<?php echo do_shortcode( '[vekta_simulador]' ); ?>
-		</div>
-	</section>
-
-	<!-- 6. SHOWROOM DE SISTEMAS CON FILTROS DINÁMICOS POR PESTAÑAS -->
-	<section class="vk-solutions-section" id="soluciones">
-		<div class="vk-container">
-			<div class="vk-section-header vk-reveal">
-				<span class="vk-section-subtitle">Catálogo de Sistemas de Alta Gama</span>
-				<h2 class="vk-section-title">Soluciones a Medida para Cada Espacio</h2>
-				<p class="vk-section-desc">Diseñadas para maximizar la entrada de luz solar, reducir el consumo en climatización y elevar la estética arquitectónica de tu vivienda.</p>
-			</div>
-
-			<!-- Pestañas de filtrado interactivo -->
-			<div class="vk-filter-tabs" role="tablist" aria-label="Filtrar sistemas de carpintería">
-				<button type="button" class="vk-filter-btn active" data-filter="all" role="tab" aria-selected="true">Todos los Sistemas (6)</button>
-				<button type="button" class="vk-filter-btn" data-filter="abatible" role="tab" aria-selected="false">Ventanas Abatibles</button>
-				<button type="button" class="vk-filter-btn" data-filter="corredera" role="tab" aria-selected="false">Correderas Panorámicas</button>
-				<button type="button" class="vk-filter-btn" data-filter="puertas" role="tab" aria-selected="false">Puertas de Entrada</button>
-				<button type="button" class="vk-filter-btn" data-filter="especiales" role="tab" aria-selected="false">Cajones & Persianas</button>
-			</div>
-
-			<div class="vk-solutions-grid" id="vk-products-container">
-				<!-- Tarjeta 1: Abatible 76 -->
-				<article class="vk-solution-card vk-reveal" data-category="abatible">
-					<div class="vk-card-media">
-						<img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80" alt="Ventana abatible oscilobatiente Vekta Confort 76 instalada" loading="lazy" />
-						<span class="vk-card-badge-top">Top Ventas Residencial</span>
-						<span class="vk-card-price-tag">Desde 295 €/ud</span>
-					</div>
-					<div class="vk-card-body">
-						<h3 class="vk-card-title">Vekta Confort 76 Abatible</h3>
-						<p class="vk-card-text">Apertura practicable y oscilobatiente de alta estanqueidad con microventilación integrada. Máximo aislamiento térmico para cualquier vivienda urbana.</p>
-						<ul class="vk-specs-list">
-							<li class="vk-spec-row"><span>Perfilería:</span> <span>76mm | 6 cámaras estancas</span></li>
-							<li class="vk-spec-row"><span>Insonorización:</span> <span>Hasta -46 dB</span></li>
-							<li class="vk-spec-row"><span>Transmitancia Uw:</span> <span>0.82 W/m²K</span></li>
-							<li class="vk-spec-row"><span>Herraje:</span> <span>Roto NT perimetral oscilobatiente</span></li>
-						</ul>
-						<div class="vk-card-footer">
-							<a href="#configurador" class="vk-btn-primary" style="width: 100%;">Configurar esta ventana</a>
-						</div>
-					</div>
-				</article>
-
-				<!-- Tarjeta 2: Corredera Elevable Panorama Slide -->
-				<article class="vk-solution-card vk-reveal" data-category="corredera">
-					<div class="vk-card-media">
-						<img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80" alt="Corredera elevable panorámica Vekta Slide abierta hacia terraza" loading="lazy" />
-						<span class="vk-card-badge-top">Gran Formato Panorámico</span>
-						<span class="vk-card-price-tag">Desde 890 €/ud</span>
-					</div>
-					<div class="vk-card-body">
-						<h3 class="vk-card-title">Vekta Panorama Slide Elevable</h3>
-						<p class="vk-card-text">Corredera de suelo a techo con marco embutido y umbral plano a cota cero sin tropiezos. Desliza hojas de hasta 400 kg con un solo dedo.</p>
-						<ul class="vk-specs-list">
-							<li class="vk-spec-row"><span>Perfilería:</span> <span>Marco 160mm reforzado con acero</span></li>
-							<li class="vk-spec-row"><span>Hojas de vidrio:</span> <span>Hasta 3,20 m de altura</span></li>
-							<li class="vk-spec-row"><span>Transmitancia Uw:</span> <span>0.95 W/m²K</span></li>
-							<li class="vk-spec-row"><span>Umbral accesible:</span> <span>A cota cero 0mm (PMR)</span></li>
-						</ul>
-						<div class="vk-card-footer">
-							<a href="#configurador" class="vk-btn-primary" style="width: 100%;">Configurar esta ventana</a>
-						</div>
-					</div>
-				</article>
-
-				<!-- Tarjeta 3: Passivhaus 88 Ultra -->
-				<article class="vk-solution-card vk-reveal" data-category="abatible">
-					<div class="vk-card-media">
-						<img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80" alt="Vivienda Passivhaus con ventanas Vekta 88 con triple vidrio" loading="lazy" />
-						<span class="vk-card-badge-top">Certificación Passivhaus A+++</span>
-						<span class="vk-card-price-tag">Desde 460 €/ud</span>
-					</div>
-					<div class="vk-card-body">
-						<h3 class="vk-card-title">Vekta 88 Passivhaus Pro</h3>
-						<p class="vk-card-text">El estándar definitivo para edificios de consumo energético casi nulo (ECCN). Triple junta de caucho EPDM y cámaras térmicas rellenas de aislamiento.</p>
-						<ul class="vk-specs-list">
-							<li class="vk-spec-row"><span>Perfilería:</span> <span>88mm | 7 cámaras con núcleo térmico</span></li>
-							<li class="vk-spec-row"><span>Insonorización:</span> <span>Hasta -52 dB</span></li>
-							<li class="vk-spec-row"><span>Transmitancia Uw:</span> <span>0.65 W/m²K (Ultra eficiente)</span></li>
-							<li class="vk-spec-row"><span>Acristalamiento:</span> <span>Triple vidrio con gas Argón/Kriptón</span></li>
-						</ul>
-						<div class="vk-card-footer">
-							<a href="#configurador" class="vk-btn-primary" style="width: 100%;">Configurar esta ventana</a>
-						</div>
-					</div>
-				</article>
-
-				<!-- Tarjeta 4: Puerta de Entrada de Seguridad -->
-				<article class="vk-solution-card vk-reveal" data-category="puertas">
-					<div class="vk-card-media">
-						<img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="Puerta de entrada de alta seguridad en PVC grafito mate" loading="lazy" />
-						<span class="vk-card-badge-top">Seguridad Acorazada RC3</span>
-						<span class="vk-card-price-tag">Desde 1.150 €/ud</span>
-					</div>
-					<div class="vk-card-body">
-						<h3 class="vk-card-title">Puerta de Entrada Vekta Master Safe</h3>
-						<p class="vk-card-text">Elegancia arquitectónica y protección insuperable. Cerradura multipunto automática, refuerzos esquineros soldados y panel térmico macizo.</p>
-						<ul class="vk-specs-list">
-							<li class="vk-spec-row"><span>Cerradura:</span> <span>Multipunto con ganchos de acero</span></li>
-							<li class="vk-spec-row"><span>Cilindro:</span> <span>Antibumping, antiganzúa y antitaladro</span></li>
-							<li class="vk-spec-row"><span>Aislamiento acústico:</span> <span>-44 dB</span></li>
-							<li class="vk-spec-row"><span>Acabado:</span> <span>Foliado texturado grafito / roble</span></li>
-						</ul>
-						<div class="vk-card-footer">
-							<a href="#configurador" class="vk-btn-primary" style="width: 100%;">Configurar esta puerta</a>
-						</div>
-					</div>
-				</article>
-
-				<!-- Tarjeta 5: Cajón de Persiana Monoblock Hermético -->
-				<article class="vk-solution-card vk-reveal" data-category="especiales">
-					<div class="vk-card-media">
-						<img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80" alt="Ventanales con persianas motorizadas herméticas y cajón oculto" loading="lazy" />
-						<span class="vk-card-badge-top">Térmico & Motorizado</span>
-						<span class="vk-card-price-tag">Desde 180 €/ud</span>
-					</div>
-					<div class="vk-card-body">
-						<h3 class="vk-card-title">Cajón Monoblock Vekta ThermoBox</h3>
-						<p class="vk-card-text">El 40% de las pérdidas energéticas y ruidos en ventanas entran por el cajón de persiana tradicional. ThermoBox elimina los puentes térmicos por completo.</p>
-						<ul class="vk-specs-list">
-							<li class="vk-spec-row"><span>Aislamiento:</span> <span>Poliuretano expandido de alta densidad</span></li>
-							<li class="vk-spec-row"><span>Motorización:</span> <span>Somfy® io silencioso con app móvil</span></li>
-							<li class="vk-spec-row"><span>Lamas:</span> <span>Aluminio extrusionado con bloqueo antipalanca</span></li>
-							<li class="vk-spec-row"><span>Estanqueidad:</span> <span>Clase 4 al aire</span></li>
-						</ul>
-						<div class="vk-card-footer">
-							<a href="#configurador" class="vk-btn-primary" style="width: 100%;">Añadir a mi proyecto</a>
-						</div>
-					</div>
-				</article>
-
-				<!-- Tarjeta 6: Corredera Osciloparalela -->
-				<article class="vk-solution-card vk-reveal" data-category="corredera">
-					<div class="vk-card-media">
-						<img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" alt="Vivienda con corredera osciloparalela Vekta para optimizar espacio" loading="lazy" />
-						<span class="vk-card-badge-top">Ahorro de Espacio</span>
-						<span class="vk-card-price-tag">Desde 580 €/ud</span>
-					</div>
-					<div class="vk-card-body">
-						<h3 class="vk-card-title">Vekta Slide Osciloparalela</h3>
-						<p class="vk-card-text">Combina el cierre hermético por presión de una ventana abatible con la comodidad de desplazamiento de una corredera para cocinas y salones reducidos.</p>
-						<ul class="vk-specs-list">
-							<li class="vk-spec-row"><span>Hermeticidad:</span> <span>Doble junta de compresión activa</span></li>
-							<li class="vk-spec-row"><span>Insonorización:</span> <span>-45 dB</span></li>
-							<li class="vk-spec-row"><span>Transmitancia Uw:</span> <span>0.88 W/m²K</span></li>
-							<li class="vk-spec-row"><span>Ventilación:</span> <span>Posición oscilo para aireación segura</span></li>
-						</ul>
-						<div class="vk-card-footer">
-							<a href="#configurador" class="vk-btn-primary" style="width: 100%;">Configurar esta ventana</a>
-						</div>
-					</div>
-				</article>
+		<!-- ========================================== -->
+		<!-- CINTA DE PRECISIÓN INDUSTRIAL (Marquee)    -->
+		<!-- ========================================== -->
+		<div class="w-full bg-graphite text-limestone py-4 overflow-hidden border-y border-graphite select-none">
+			<div class="flex whitespace-nowrap font-mono text-xs uppercase tracking-widest animate-marquee items-center space-x-12">
+				<span>KÖMMERLING K-VISION 76</span>
+				<span class="text-laser">/</span>
+				<span>VEKA SPECTRAL 82 PASSIVHAUS</span>
+				<span class="text-laser">/</span>
+				<span>GUARDIAN SUN EXTRA-CLEAR 4+4/16/6</span>
+				<span class="text-laser">/</span>
+				<span>HERRAJES HOPPE SECUSTIK RC2</span>
+				<span class="text-laser">/</span>
+				<span>ROTO NX TITAN SILBER</span>
+				<span class="text-laser">/</span>
+				<span>CERTIFICACIÓN PASSIVHAUS INSTITUT DARMSTADT</span>
+				<span class="text-laser">/</span>
+				<span>KÖMMERLING K-VISION 76</span>
+				<span class="text-laser">/</span>
+				<span>VEKA SPECTRAL 82 PASSIVHAUS</span>
 			</div>
 		</div>
-	</section>
 
-	<!-- 7. BENTO GRID DE INGENIERÍA & CALIDAD DE MATERIALES -->
-	<section class="vk-bento-section" id="ingenieria">
-		<div class="vk-container">
-			<div class="vk-section-header vk-reveal">
-				<span class="vk-section-subtitle">Ingeniería & Fabricación Propia</span>
-				<h2 class="vk-section-title">Anatomía de una Ventana Vekta</h2>
-				<p class="vk-section-desc">No todas las ventanas de PVC son iguales. Descubre por qué nuestros perfiles alemanes duran más de 50 años sin alterarse.</p>
-			</div>
-
-			<div class="vk-bento-grid">
-				<div class="vk-bento-box vk-bento-col-2 vk-reveal">
-					<div class="vk-bento-media-bg">
-						<img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80" alt="Ingeniería y precisión industrial de perfiles multicámara" loading="lazy" />
-					</div>
-					<div class="vk-bento-content">
-						<span class="vk-badge-pill dark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> 7 Cámaras Aislantes</span>
-						<h3 class="vk-bento-title">Perfiles Multicámara con Almas de Acero Galvanizado</h3>
-						<p class="vk-bento-desc">Estructura celular interna con rotura térmica total. El refuerzo perimetral de acero galvanizado de 2 mm de espesor garantiza que la ventana no se deforme jamás, soportando vientos huracanados y cambios térmicos de -20°C a +45°C.</p>
-					</div>
+		<!-- ========================================== -->
+		<!-- SECCIÓN 02: EL FRENO ACÚSTICO (Pinned)     -->
+		<!-- ========================================== -->
+		<section id="acustica" class="relative bg-graphite text-limestone py-28 md:py-40 px-6 md:px-12 border-b border-white/10 architectural-grid-dark">
+			<div class="max-w-7xl mx-auto">
+				<!-- Rótulo de Sección -->
+				<div class="flex items-center space-x-4 mb-8 font-mono text-xs uppercase tracking-widest text-lead">
+					<span class="text-laser font-bold">02</span>
+					<span class="w-8 h-[1px] bg-white/20"></span>
+					<span>Dinámica de Atenuación Sonora</span>
 				</div>
 
-				<div class="vk-bento-box vk-reveal">
-					<div class="vk-bento-icon" aria-hidden="true">
-						<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-					</div>
-					<h3 class="vk-bento-title">Herrajes Perimetrales Roto NT Clase RC2</h3>
-					<p class="vk-bento-desc">Cerraderos de seguridad antipalanca con bulones de cabeza de seta en todo el perímetro de la hoja para hacer frente a intentos de robo.</p>
-					<span class="vk-cert-tag">Protección Antirrobo Certificada</span>
-				</div>
+				<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+					<div class="lg:col-span-6">
+						<h2 class="font-syne text-4xl sm:text-5xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.95] mb-6">
+							EL FRENO<br><span class="text-outline-dark">ACÚSTICO.</span>
+						</h2>
+						<p class="text-lead text-base md:text-lg leading-relaxed mb-8 font-light">
+							El ruido urbano no entra por el muro, entra por la holgura y la resonancia del vidrio simple. Nuestras composiciones de vidrio triple laminar acústico con butiral PVB Silence rompen la curva de resonancia hasta una caída neta de <strong>-52 dB</strong>.
+						</p>
 
-				<div class="vk-bento-box vk-reveal">
-					<div class="vk-bento-icon" aria-hidden="true">
-						<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-					</div>
-					<h3 class="vk-bento-title">Vidrio Acústico Laminado SilenceCore™</h3>
-					<p class="vk-bento-desc">Láminas de polivinilo butiral acústico (PVB) que absorben las ondas sonoras del tráfico urbano, tranvías y bullicio exterior.</p>
-					<span class="vk-cert-tag">Reducción hasta -52 dB</span>
-				</div>
+						<!-- Selector de Comparativa Acústica -->
+						<div class="space-y-4 font-mono text-xs" id="acoustic-selectors">
+							<button class="acoustic-toggle w-full text-left p-4 border border-white/10 hover:border-white/30 transition-all flex justify-between items-center bg-white/5 active-toggle" data-db="85" data-reduction="0" data-label="Exterior Urbano sin Cerramiento">
+								<div>
+									<span class="text-lead block text-[10px]">ESCENARIO 01</span>
+									<span class="text-white font-bold text-sm">Tráfico denso y sirenas en calle principal</span>
+								</div>
+								<span class="font-syne text-xl text-red-400 font-bold">85 dB</span>
+							</button>
 
-				<div class="vk-bento-box vk-bento-col-2 vk-reveal">
-					<div class="vk-bento-media-bg">
-						<img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80" alt="Instalación profesional certificada según norma técnica" loading="lazy" />
-					</div>
-					<div class="vk-bento-content">
-						<span class="vk-badge-pill eco">Montaje UNE 85219</span>
-						<h3 class="vk-bento-title">Instalación Limpia sin Obras en 1 Día</h3>
-						<p class="vk-bento-desc">Una ventana excelente mal instalada pierde el 50% de sus prestaciones. Nuestros instaladores propios utilizan bandas autoexpansivas y membranas de estanqueidad para garantizar que no entre ni una gota de aire o humedad.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+							<button class="acoustic-toggle w-full text-left p-4 border border-white/10 hover:border-white/30 transition-all flex justify-between items-center bg-white/5" data-db="52" data-reduction="33" data-label="Ventana Aluminio Antigua con Vidrio Simple">
+								<div>
+									<span class="text-lead block text-[10px]">ESCENARIO 02</span>
+									<span class="text-white font-bold text-sm">Ventana estándar de obra (Aluminio sin RPT)</span>
+								</div>
+								<span class="font-syne text-xl text-amber-300 font-bold">52 dB</span>
+							</button>
 
-	<!-- 8. PROYECTOS REALES / CASOS DE ÉXITO ANTES & DESPUÉS -->
-	<section class="vk-projects-section" id="proyectos">
-		<div class="vk-container">
-			<div class="vk-section-header vk-reveal">
-				<span class="vk-section-subtitle">Obras Realizadas</span>
-				<h2 class="vk-section-title">Resultados Tangibles en Hogares Reales</h2>
-				<p class="vk-section-desc">Echa un vistazo a algunas de nuestras reformas más recientes y comprueba el impacto en confort, diseño y aislamiento.</p>
-			</div>
-
-			<div class="vk-projects-grid">
-				<!-- Proyecto 1 -->
-				<article class="vk-project-card vk-reveal">
-					<div class="vk-project-media">
-						<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Reforma integral de chalet unifamiliar en Pozuelo" loading="lazy" />
-						<span class="vk-project-tag">Chalet Unifamiliar</span>
-					</div>
-					<div class="vk-project-body">
-						<div class="vk-project-meta">
-							<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Pozuelo de Alarcón, Madrid</span>
-							<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Instalación: 2 días</span>
-						</div>
-						<h3 class="vk-project-title">Reforma Térmica Passivhaus con Correderas de 4 Metros</h3>
-						<p class="vk-project-desc">Sustitución de carpintería metálica antigua por 9 ventanales Vekta 88 y 2 correderas panorámicas. Calificación energética A lograda y ahorro del 70% en factura de gas.</p>
-						<div class="vk-project-badges">
-							<span class="vk-metric-badge">-48 dB Ruido</span>
-							<span class="vk-metric-badge">Uw 0.72 W/m²K</span>
-							<span class="vk-metric-badge green">+2.450 € Ayuda NextGen</span>
-						</div>
-					</div>
-				</article>
-
-				<!-- Proyecto 2 -->
-				<article class="vk-project-card vk-reveal">
-					<div class="vk-project-media">
-						<img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="Insonorización de ático en zona urbana céntrica" loading="lazy" />
-						<span class="vk-project-tag">Ático Céntrico</span>
-					</div>
-					<div class="vk-project-body">
-						<div class="vk-project-meta">
-							<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Paseo de la Castellana, Madrid</span>
-							<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Instalación: 1 día</span>
-						</div>
-						<h3 class="vk-project-title">Insonorización Extrema contra Tráfico en Planta 7ª</h3>
-						<p class="vk-project-desc">Los propietarios no podían conciliar el sueño por el tráfico incesante. Instalamos Vekta Confort 76 con triple vidrio acústico laminado SilenceCore™. Silencio total recuperado.</p>
-						<div class="vk-project-badges">
-							<span class="vk-metric-badge">-51 dB Ruido</span>
-							<span class="vk-metric-badge">Cero condensación</span>
-							<span class="vk-metric-badge">Color Gris Antracita</span>
-						</div>
-					</div>
-				</article>
-
-				<!-- Proyecto 3 -->
-				<article class="vk-project-card vk-reveal">
-					<div class="vk-project-media">
-						<img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80" alt="Rehabilitación energética en vivienda de los años 80" loading="lazy" />
-						<span class="vk-project-tag">Piso Residencial</span>
-					</div>
-					<div class="vk-project-body">
-						<div class="vk-project-meta">
-							<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Valencia Capital</span>
-							<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Instalación: 6 horas</span>
-						</div>
-						<h3 class="vk-project-title">Cambio de 6 Ventanas de Aluminio por PVC Blanco Polar</h3>
-						<p class="vk-project-desc">Retirada de ventanas correderas frías que generaban corrientes y moho. Montaje de 6 unidades oscilobatientes con cajón monoblock térmico sin romper azulejos.</p>
-						<div class="vk-project-badges">
-							<span class="vk-metric-badge">-42 dB Ruido</span>
-							<span class="vk-metric-badge">55% Ahorro Aire Acondicionado</span>
-							<span class="vk-metric-badge green">10 Años Garantía</span>
-						</div>
-					</div>
-				</article>
-			</div>
-		</div>
-	</section>
-
-	<!-- 9. CONFIGURADOR INTERACTIVO DE PRESUPUESTO EN 3 PASOS (CON CAPTACIÓN DE LEAD) -->
-	<section class="vk-config-section" id="configurador">
-		<div class="vk-container">
-			<div class="vk-section-header vk-reveal">
-				<span class="vk-section-subtitle">Simulador de Coste Online</span>
-				<h2 class="vk-section-title">Configura tu Presupuesto Personalizado</h2>
-				<p class="vk-section-desc">Selecciona las opciones que mejor se ajustan a tu inmueble para obtener una valoración orientativa al instante con cálculo de subvenciones.</p>
-			</div>
-
-			<div class="vk-config-card vk-reveal">
-				<div class="vk-form-step-content">
-					<!-- Paso 1 -->
-					<h3 class="vk-step-heading">1. Tipo de Vivienda o Proyecto</h3>
-					<div class="vk-options-grid" role="group" aria-label="Selección de tipo de inmueble">
-						<div class="vk-option-card selected" data-group="dwelling" data-val="piso" role="button" tabindex="0" aria-pressed="true">
-							<div class="vk-opt-icon" aria-hidden="true">
-								<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><line x1="8" y1="6" x2="8.01" y2="6"/><line x1="16" y1="6" x2="16.01" y2="6"/><line x1="12" y1="6" x2="12.01" y2="6"/><line x1="8" y1="10" x2="8.01" y2="10"/><line x1="12" y1="10" x2="12.01" y2="10"/><line x1="16" y1="10" x2="16.01" y2="10"/><line x1="8" y1="14" x2="8.01" y2="14"/><line x1="12" y1="14" x2="12.01" y2="14"/><line x1="16" y1="14" x2="16.01" y2="14"/></svg>
-							</div>
-							<strong>Piso / Apartamento</strong>
-							<span class="vk-opt-sub">Reforma habitual en ciudad</span>
-						</div>
-						<div class="vk-option-card" data-group="dwelling" data-val="atico" role="button" tabindex="0" aria-pressed="false">
-							<div class="vk-opt-icon" aria-hidden="true">
-								<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-3"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="9" y1="13" x2="9.01" y2="13"/><line x1="9" y1="17" x2="9.01" y2="17"/></svg>
-							</div>
-							<strong>Ático con Terraza</strong>
-							<span class="vk-opt-sub">Alta exposición a viento y sol</span>
-						</div>
-						<div class="vk-option-card" data-group="dwelling" data-val="chalet" role="button" tabindex="0" aria-pressed="false">
-							<div class="vk-opt-icon" aria-hidden="true">
-								<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-							</div>
-							<strong>Chalet / Casa Unifamiliar</strong>
-							<span class="vk-opt-sub">Grandes superficies acristaladas</span>
-						</div>
-					</div>
-
-					<!-- Paso 2 -->
-					<h3 class="vk-step-heading">2. Número de Ventanas a Cambiar</h3>
-					<div class="vk-options-grid" role="group" aria-label="Selección de número de ventanas">
-						<div class="vk-option-card" data-group="windows" data-val="3" role="button" tabindex="0" aria-pressed="false">
-							<span class="vk-opt-big-num">3</span>
-							<strong>Ventanas</strong>
-							<span class="vk-opt-sub">Zona concreta o piso pequeño</span>
-						</div>
-						<div class="vk-option-card selected" data-group="windows" data-val="5" role="button" tabindex="0" aria-pressed="true">
-							<span class="vk-opt-big-num">5</span>
-							<strong>Ventanas</strong>
-							<span class="vk-opt-sub">Piso medio (2-3 dormitorios)</span>
-						</div>
-						<div class="vk-option-card" data-group="windows" data-val="8" role="button" tabindex="0" aria-pressed="false">
-							<span class="vk-opt-big-num">8</span>
-							<strong>Ventanas</strong>
-							<span class="vk-opt-sub">Vivienda amplia o ático</span>
-						</div>
-						<div class="vk-option-card" data-group="windows" data-val="12" role="button" tabindex="0" aria-pressed="false">
-							<span class="vk-opt-big-num">12+</span>
-							<strong>Ventanas</strong>
-							<span class="vk-opt-sub">Chalet o unifamiliar completo</span>
-						</div>
-					</div>
-
-					<!-- Paso 3 -->
-					<h3 class="vk-step-heading">3. Acabado y Tono del Perfil</h3>
-					<div class="vk-options-grid" role="group" aria-label="Selección de acabado y color">
-						<div class="vk-option-card" data-group="finish" data-val="blanco" role="button" tabindex="0" aria-pressed="false">
-							<div class="vk-color-circle color-blanco"></div>
-							<strong>Blanco Polar</strong>
-							<span class="vk-opt-sub">Clásico y ultra luminoso</span>
-						</div>
-						<div class="vk-option-card selected" data-group="finish" data-val="antracita" role="button" tabindex="0" aria-pressed="true">
-							<div class="vk-color-circle color-antracita"></div>
-							<strong>Gris Antracita 7016</strong>
-							<span class="vk-opt-sub">Tendencia arquitectónica mate</span>
-						</div>
-						<div class="vk-option-card" data-group="finish" data-val="roble" role="button" tabindex="0" aria-pressed="false">
-							<div class="vk-color-circle color-roble"></div>
-							<strong>Roble Turner Wood</strong>
-							<span class="vk-opt-sub">Calidez madera natural</span>
-						</div>
-						<div class="vk-option-card" data-group="finish" data-val="negro" role="button" tabindex="0" aria-pressed="false">
-							<div class="vk-color-circle color-negro"></div>
-							<strong>Negro Jet Black</strong>
-							<span class="vk-opt-sub">Diseño minimalista industrial</span>
-						</div>
-					</div>
-
-					<!-- Resumen del Presupuesto Estimado -->
-					<div class="vk-config-total-estimate">
-						<div class="vk-estimate-data">
-							<span class="vk-estimate-title">Estimación orientativa (Fabricación + Instalación Pro + IVA):</span>
-							<div class="vk-estimate-range" id="vk-live-estimate">2.950 € — 3.350 €</div>
-							<div class="vk-subsidy-badge" id="vk-live-subsidy">
-								<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0; vertical-align: -2px; margin-right: 4px;"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg> Deducción estimada Plan Renove: <strong>Hasta -1.250 €</strong> en ayuda directa
-							</div>
-						</div>
-						<div class="vk-estimate-actions">
-							<button type="button" class="vk-btn-primary vk-btn-lg" id="vk-btn-open-lead-modal">
-								<span>Solicitar Medición Gratuita &rarr;</span>
+							<button class="acoustic-toggle w-full text-left p-4 border border-laser/40 hover:border-laser transition-all flex justify-between items-center bg-pine/30" data-db="18" data-reduction="52" data-label="Vekta Systems Triple Silence Core">
+								<div>
+									<span class="text-laser block text-[10px]">ENCLAVE VEKTA SYSTEMS</span>
+									<span class="text-white font-bold text-sm">Triple Acristalamiento Laminar Acústico + 7 Cámaras</span>
+								</div>
+								<span class="font-syne text-xl text-laser font-bold">18 dB</span>
 							</button>
 						</div>
 					</div>
 
-					<!-- Formulario de Contacto / Lead Integrado -->
-					<div class="vk-lead-form-box" id="vk-lead-capture-box">
-						<h4 class="vk-lead-form-title">Completa tus datos para agendar la visita técnica sin compromiso:</h4>
-						<form class="vk-lead-form" id="vk-quote-form" onsubmit="return false;">
-							<div class="vk-form-grid">
-								<div class="vk-form-field">
-									<label for="lead-name">Nombre y Apellidos *</label>
-									<input type="text" id="lead-name" name="name" placeholder="Ej. Roberto Gómez" required />
-								</div>
-								<div class="vk-form-field">
-									<label for="lead-phone">Teléfono de Contacto *</label>
-									<input type="tel" id="lead-phone" name="phone" placeholder="Ej. 612 345 678" required />
-								</div>
-								<div class="vk-form-field">
-									<label for="lead-email">Correo Electrónico *</label>
-									<input type="email" id="lead-email" name="email" placeholder="roberto@email.com" required />
-								</div>
-								<div class="vk-form-field">
-									<label for="lead-city">Localidad / Código Postal *</label>
-									<input type="text" id="lead-city" name="city" placeholder="Ej. Madrid 28001" required />
-								</div>
-							</div>
-							<div class="vk-form-field full-width">
-								<label for="lead-notes">Detalles adicionales del proyecto (opcional):</label>
-								<textarea id="lead-notes" name="notes" rows="2" placeholder="Ej. Ventanas correderas para dar a la terraza y 3 abatibles para dormitorios con persiana"></textarea>
-							</div>
-							<div class="vk-form-submit-row">
-								<button type="submit" class="vk-btn-primary vk-btn-lg" id="vk-btn-submit-lead">
-									Confirmar y Enviar Solicitud
-								</button>
-								<small class="vk-form-privacy"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0; vertical-align: -1px; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Tus datos están protegidos. Sin spam ni llamadas comerciales no solicitadas.</small>
-							</div>
-						</form>
-					</div>
+					<!-- Visualizador de Osciloscopio Acústico Interactivo -->
+					<div class="lg:col-span-6 bg-black/60 border border-white/15 p-8 flex flex-col justify-between min-h-[420px] relative">
+						<div class="flex justify-between items-center border-b border-white/10 pb-4 font-mono text-[11px] text-lead">
+							<span>ESPECTROGRAFÍA EN TIEMPO REAL</span>
+							<span class="flex items-center space-x-2">
+								<span class="w-2 h-2 rounded-full bg-laser animate-ping"></span>
+								<span class="text-white" id="vk-spectrum-status">AMORTIGUACIÓN ACTIVA</span>
+							</span>
+						</div>
 
-					<!-- Feedback accesible de confirmación tras envío -->
-					<div id="vk-quote-feedback" style="display: none;" role="status" aria-live="polite">
-						<div class="vk-success-message-card">
-							<span class="vk-success-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span>
+						<!-- Canvas / SVG Onda de Sonido -->
+						<div class="py-12 relative flex items-center justify-center">
+							<svg id="vk-wave-svg" class="w-full h-32 overflow-visible" viewBox="0 0 500 100" preserveAspectRatio="none">
+								<path id="vk-sound-path" d="M 0 50 Q 50 10, 100 50 T 200 50 T 300 50 T 400 50 T 500 50" fill="none" stroke="#C6FF00" stroke-width="2.5" />
+							</svg>
+							<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+								<div class="h-full w-[1px] bg-white/20"></div>
+							</div>
+						</div>
+
+						<!-- Lectura de Decibelios y Estado -->
+						<div class="border-t border-white/10 pt-4 flex items-end justify-between font-mono">
 							<div>
-								<strong>¡Solicitud de presupuesto registrada con éxito!</strong>
-								<p>Hemos asignado a tu proyecto a uno de nuestros ingenieros de producto. Nos pondremos en contacto contigo en menos de 2 horas laborables para concretar tu medición gratuita.</p>
+								<span class="text-[10px] text-lead uppercase tracking-widest block">NIVEL PERCIBIDO EN INTERIOR</span>
+								<span id="vk-db-display" class="font-syne text-4xl md:text-5xl font-bold text-laser tabular-nums">18 dB</span>
+							</div>
+							<div class="text-right">
+								<span class="text-[10px] text-lead uppercase tracking-widest block">EQUIVALENCIA</span>
+								<span id="vk-equiv-display" class="text-xs text-white uppercase font-bold tracking-wider">Susurro en biblioteca</span>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<!-- 10. TESTIMONIOS Y OPINIONES VERIFICADAS (GOOGLE REVIEWS 4.9★) -->
-	<section class="vk-reviews-section" id="opiniones">
-		<div class="vk-container">
-			<div class="vk-reviews-header vk-reveal">
-				<div>
-					<span class="vk-section-subtitle">Opiniones Reales de Clientes</span>
-					<h2 class="vk-section-title">Confianza Ganada en Más de 2.400 Instalaciones</h2>
+		<!-- ========================================== -->
+		<!-- SECCIÓN 03: CATÁLOGO DE CARPINTERÍAS       -->
+		<!-- ========================================== -->
+		<section id="sistemas" class="py-28 md:py-36 px-6 md:px-12 border-b border-graphite/10">
+			<div class="max-w-7xl mx-auto">
+				<!-- Rótulo de Sección -->
+				<div class="flex items-center space-x-4 mb-6 font-mono text-xs uppercase tracking-widest text-lead">
+					<span class="text-pine font-bold">03</span>
+					<span class="w-8 h-[1px] bg-graphite/20"></span>
+					<span>Gama de Sistemas Arquitectónicos</span>
 				</div>
-				<div class="vk-google-badge-box">
-					<div class="vk-google-logo">Google</div>
-					<div class="vk-stars">★★★★★</div>
-					<div class="vk-rating-number"><strong>4.9 / 5</strong> (184 reseñas verificadas)</div>
+
+				<div class="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-6">
+					<h2 class="font-syne text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter uppercase leading-[0.95]">
+						CARPINTERÍAS<br><span class="text-outline">DE PRECISIÓN.</span>
+					</h2>
+					<p class="max-w-md text-lead text-sm font-mono leading-relaxed">
+						Cada sistema se mecaniza mediante centros de control numérico de 5 ejes, garantizando tolerancias de ajuste inferiores a 0.2 mm.
+					</p>
+				</div>
+
+				<!-- Catálogo Asimétrico Alternado (4 Sistemas Maestros) -->
+				<div class="space-y-16">
+
+					<!-- SISTEMA 01: VEKTA 82 PASSIVHAUS -->
+					<article class="group grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border border-graphite/10 bg-white/60 p-6 md:p-10 hover:border-graphite/30 transition-all duration-300">
+						<div class="lg:col-span-6 overflow-hidden aspect-[4/3] bg-graphite">
+							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/sistema-vekta-82.jpg' ); ?>" 
+								 alt="Sistema Vekta 82 Passivhaus de carpintería practicable oscilobatiente" 
+								 class="w-full h-full object-cover arch-photo-hover" 
+								 loading="lazy" />
+						</div>
+						<div class="lg:col-span-6 flex flex-col justify-between space-y-6">
+							<div>
+								<div class="flex justify-between items-center font-mono text-xs text-lead mb-3">
+									<span class="font-bold text-pine uppercase">SISTEMA 01 // VENTANA PRACTICABLE</span>
+									<span>7 CÁMARAS / 82 MM</span>
+								</div>
+								<h3 class="font-syne text-3xl md:text-4xl font-bold uppercase tracking-tight text-graphite mb-4">
+									VEKTA 82 PASSIVHAUS
+								</h3>
+								<p class="text-lead text-sm leading-relaxed mb-6 font-light">
+									Configurada para estándares de consumo energético casi nulo (ECCN). Equipada con triple junta perimetral coextrusionada y refuerzo central térmicamente desacoplado que elimina cualquier condensación intersticial.
+								</p>
+							</div>
+
+							<div class="grid grid-cols-3 gap-4 border-y border-graphite/10 py-4 font-mono text-xs">
+								<div>
+									<span class="text-lead text-[10px] block">TRANSMITANCIA</span>
+									<span class="font-bold text-graphite text-sm">Uw 0.67</span>
+								</div>
+								<div>
+									<span class="text-lead text-[10px] block">ATENUACIÓN</span>
+									<span class="font-bold text-pine text-sm">Rw -48 dB</span>
+								</div>
+								<div>
+									<span class="text-lead text-[10px] block">ESTANQUEIDAD</span>
+									<span class="font-bold text-graphite text-sm">Clase 9A</span>
+								</div>
+							</div>
+
+							<div class="flex items-center justify-between pt-2">
+								<a href="#contacto" class="text-xs font-mono uppercase tracking-widest text-graphite font-bold hover:text-pine flex items-center space-x-2">
+									<span>Consultar Ficha Técnica</span>
+									<span>→</span>
+								</a>
+								<span class="font-mono text-[10px] text-lead">REF: VK-82-PH</span>
+							</div>
+						</div>
+					</article>
+
+					<!-- SISTEMA 02: HORIZON SLIDE 4.0 -->
+					<article class="group grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border border-graphite/10 bg-white/60 p-6 md:p-10 hover:border-graphite/30 transition-all duration-300">
+						<div class="lg:col-span-6 order-1 lg:order-2 overflow-hidden aspect-[4/3] bg-graphite">
+							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/sistema-horizon-slide.jpg' ); ?>" 
+								 alt="Sistema Horizon Slide de corredera elevable de suelo a techo" 
+								 class="w-full h-full object-cover arch-photo-hover" 
+								 loading="lazy" />
+						</div>
+						<div class="lg:col-span-6 order-2 lg:order-1 flex flex-col justify-between space-y-6">
+							<div>
+								<div class="flex justify-between items-center font-mono text-xs text-lead mb-3">
+									<span class="font-bold text-pine uppercase">SISTEMA 02 // CORREDERA ELEVABLE</span>
+									<span>HASTA 400 KG / HOJA</span>
+								</div>
+								<h3 class="font-syne text-3xl md:text-4xl font-bold uppercase tracking-tight text-graphite mb-4">
+									HORIZON SLIDE 4.0
+								</h3>
+								<p class="text-lead text-sm leading-relaxed mb-6 font-light">
+									Aperturas panorámicas de suelo a techo con umbral embutido a cota cero sin barreras arquitectónicas. Rodamientos silenciosos de agujas en acero inoxidable con accionamiento asistido con un solo dedo.
+								</p>
+							</div>
+
+							<div class="grid grid-cols-3 gap-4 border-y border-graphite/10 py-4 font-mono text-xs">
+								<div>
+									<span class="text-lead text-[10px] block">TRANSMITANCIA</span>
+									<span class="font-bold text-graphite text-sm">Uw 0.82</span>
+								</div>
+								<div>
+									<span class="text-lead text-[10px] block">LONGITUD MAX</span>
+									<span class="font-bold text-graphite text-sm">6.50 m</span>
+								</div>
+								<div>
+									<span class="text-lead text-[10px] block">SEGURIDAD</span>
+									<span class="font-bold text-pine text-sm">Grado RC2</span>
+								</div>
+							</div>
+
+							<div class="flex items-center justify-between pt-2">
+								<a href="#contacto" class="text-xs font-mono uppercase tracking-widest text-graphite font-bold hover:text-pine flex items-center space-x-2">
+									<span>Consultar Ficha Técnica</span>
+									<span>→</span>
+								</a>
+								<span class="font-mono text-[10px] text-lead">REF: VK-SLIDE-40</span>
+							</div>
+						</div>
+					</article>
+
+					<!-- SISTEMA 03: SILENCE EXTREME 52 -->
+					<article class="group grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border border-graphite/10 bg-white/60 p-6 md:p-10 hover:border-graphite/30 transition-all duration-300">
+						<div class="lg:col-span-6 overflow-hidden aspect-[4/3] bg-graphite">
+							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/sistema-silence-extreme.jpg' ); ?>" 
+								 alt="Sistema acústico Silence Extreme con aislamiento severo certificado de hasta -52 dB" 
+								 class="w-full h-full object-cover arch-photo-hover" 
+								 loading="lazy" />
+						</div>
+						<div class="lg:col-span-6 flex flex-col justify-between space-y-6">
+							<div>
+								<div class="flex justify-between items-center font-mono text-xs text-lead mb-3">
+									<span class="font-bold text-pine uppercase">SISTEMA 03 // ACÚSTICA SEVERA</span>
+									<span>DOBLE BUTIRAL PVB</span>
+								</div>
+								<h3 class="font-syne text-3xl md:text-4xl font-bold uppercase tracking-tight text-graphite mb-4">
+									SILENCE EXTREME 52
+								</h3>
+								<p class="text-lead text-sm leading-relaxed mb-6 font-light">
+									Desarrollada para entornos con afección acústica extrema (primeras líneas de tráfico denso, zonas de aproximación aeroportuaria y áreas de ocio nocturno). Reduce la presión sonora percibida en más de un 95%.
+								</p>
+							</div>
+
+							<div class="grid grid-cols-3 gap-4 border-y border-graphite/10 py-4 font-mono text-xs">
+								<div>
+									<span class="text-lead text-[10px] block">ATENUACIÓN</span>
+									<span class="font-bold text-pine text-sm">Rw -52 dB</span>
+								</div>
+								<div>
+									<span class="text-lead text-[10px] block">VIDRIO</span>
+									<span class="font-bold text-graphite text-sm">Laminar 6+6</span>
+								</div>
+								<div>
+									<span class="text-lead text-[10px] block">PERFILERÍA</span>
+									<span class="font-bold text-graphite text-sm">88 mm</span>
+								</div>
+							</div>
+
+							<div class="flex items-center justify-between pt-2">
+								<a href="#contacto" class="text-xs font-mono uppercase tracking-widest text-graphite font-bold hover:text-pine flex items-center space-x-2">
+									<span>Consultar Ficha Técnica</span>
+									<span>→</span>
+								</a>
+								<span class="font-mono text-[10px] text-lead">REF: VK-SIL-52</span>
+							</div>
+						</div>
+					</article>
+
 				</div>
 			</div>
+		</section>
 
-			<div class="vk-reviews-grid">
-				<!-- Testimonio 1 -->
-				<div class="vk-review-card vk-reveal">
-					<div class="vk-review-stars">★★★★★</div>
-					<p class="vk-review-quote">"Vivimos en una calle con tráfico pesado y autobuses. El cambio de ventanas con Vekta ha sido la mejor inversión que hemos hecho en la casa en 20 años. Cerramos la ventana y reina un silencio absoluto. Además, en invierno no encendemos casi la calefacción."</p>
-					<div class="vk-review-author">
-						<img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150&q=80" alt="Elena Ramos" class="vk-author-avatar" loading="lazy" />
-						<div>
-							<strong class="vk-author-name">Elena Ramos</strong>
-							<span class="vk-author-info">Propietaria de Ático en Chamberí</span>
+		<!-- ========================================== -->
+		<!-- SECCIÓN 04: ANATOMÍA INTERACTIVA (7 Cámaras)-->
+		<!-- ========================================== -->
+		<section id="anatomia" class="py-28 md:py-36 px-6 md:px-12 bg-graphite text-limestone border-b border-white/10 architectural-grid-dark">
+			<div class="max-w-7xl mx-auto">
+				<!-- Rótulo de Sección -->
+				<div class="flex items-center space-x-4 mb-6 font-mono text-xs uppercase tracking-widest text-lead">
+					<span class="text-laser font-bold">04</span>
+					<span class="w-8 h-[1px] bg-white/20"></span>
+					<span>Ingeniería Seccional</span>
+				</div>
+
+				<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-16">
+					<div class="lg:col-span-7">
+						<h2 class="font-syne text-4xl sm:text-5xl font-bold uppercase tracking-tighter leading-[0.95] mb-6">
+							ANATOMÍA DE<br><span class="text-outline-dark">7 CÁMARAS.</span>
+						</h2>
+						<p class="text-lead text-base leading-relaxed font-light">
+							El aire estanco encapsulado es el aislante térmico más perfecto que existe. Diseñamos cámaras interiores geométricamente calculadas para neutralizar la convección y bloquear el flujo conductivo de calor y frío.
+						</p>
+					</div>
+
+					<div class="lg:col-span-5 font-mono text-xs text-lead border-l border-white/15 pl-6 space-y-2">
+						<span class="text-laser block uppercase tracking-widest">PATRÓN DE EXTRUSIÓN DIRECTA</span>
+						<p>Polímero de PVC virgen estabilizado con calcio y zinc (100% reciclable, libre de plomo y metales pesados). Certificado Cradle to Cradle®.</p>
+					</div>
+				</div>
+
+				<!-- Diagrama Técnico Interactivo con Hotspots -->
+				<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-black/50 border border-white/10 p-8 md:p-12">
+					
+					<!-- Columna Gráfica / Corte Vectorial -->
+					<div class="lg:col-span-7 relative flex items-center justify-center p-6 border border-white/5 bg-white/[0.02]">
+						<div class="relative w-full max-w-md aspect-square flex items-center justify-center">
+							<!-- Diagrama Vectorial de la Sección de Perfil -->
+							<svg viewBox="0 0 400 400" class="w-full h-full text-white/80" fill="none" stroke="currentColor">
+								<!-- Marco Perimetral -->
+								<rect x="50" y="40" width="300" height="320" stroke-width="2" class="stroke-white/30" />
+								<!-- Cámaras Interiores de Aire -->
+								<rect x="80" y="70" width="70" height="50" stroke-width="1.5" class="stroke-white/50" />
+								<rect x="170" y="70" width="70" height="50" stroke-width="1.5" class="stroke-white/50" />
+								<rect x="260" y="70" width="60" height="50" stroke-width="1.5" class="stroke-white/50" />
+								<rect x="80" y="140" width="100" height="80" stroke-width="2" class="stroke-laser" />
+								<rect x="200" y="140" width="120" height="80" stroke-width="1.5" class="stroke-white/50" />
+								<rect x="80" y="240" width="240" height="80" stroke-width="1.5" class="stroke-white/50" />
+
+								<!-- Refuerzo de Acero Galvanizado -->
+								<rect x="95" y="155" width="70" height="50" stroke-dasharray="4 2" stroke-width="1.5" class="stroke-white/80" />
+							</svg>
+
+							<!-- Hotspots Interactivos -->
+							<button class="vk-hotspot absolute top-[28%] left-[22%] w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-laser/20 border border-laser text-laser font-mono text-xs flex items-center justify-center hover:scale-125 transition-transform" data-point="1" aria-label="Ver detalle punto 1: Cámaras térmicas">01</button>
+							
+							<button class="vk-hotspot absolute top-[45%] left-[30%] w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-laser/20 border border-laser text-laser font-mono text-xs flex items-center justify-center hover:scale-125 transition-transform" data-point="2" aria-label="Ver detalle punto 2: Refuerzo galvanizado">02</button>
+							
+							<button class="vk-hotspot absolute top-[68%] left-[50%] w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-laser/20 border border-laser text-laser font-mono text-xs flex items-center justify-center hover:scale-125 transition-transform" data-point="3" aria-label="Ver detalle punto 3: Triple junta EPDM">03</button>
+							
+							<button class="vk-hotspot absolute top-[28%] left-[70%] w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-laser/20 border border-laser text-laser font-mono text-xs flex items-center justify-center hover:scale-125 transition-transform" data-point="4" aria-label="Ver detalle punto 4: Triple acristalamiento">04</button>
+						</div>
+					</div>
+
+					<!-- Columna de Explicación Dinámica -->
+					<div class="lg:col-span-5 flex flex-col justify-between min-h-[340px] border-l border-white/10 pl-0 lg:pl-8">
+						<div id="vk-hotspot-info">
+							<span class="font-mono text-xs text-laser uppercase tracking-widest block mb-2" id="vk-spot-num">COMPONENTE 01</span>
+							<h3 class="font-syne text-2xl md:text-3xl font-bold uppercase mb-4 text-white" id="vk-spot-title">7 CÁMARAS DE AIRE ESTANCO</h3>
+							<p class="text-lead text-sm leading-relaxed mb-6 font-light" id="vk-spot-desc">
+								Geometría celular optimizada según análisis de elementos finitos térmicos (FEM). Minimiza los gradientes de temperatura interna y asegura un coeficiente Uf del marco de 0.92 W/m²K.
+							</p>
+							<div class="font-mono text-xs border-t border-white/10 pt-4" id="vk-spot-spec">
+								<span class="text-lead">NORMATIVA: </span><span class="text-white font-bold">UNE-EN 12608 / CLASE A</span>
+							</div>
+						</div>
+
+						<div class="mt-8 font-mono text-[11px] text-lead flex items-center space-x-2">
+							<span class="w-1.5 h-1.5 rounded-full bg-laser"></span>
+							<span>Haz clic en los puntos numéricos (01 - 04) para inspeccionar</span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<!-- ========================================== -->
+		<!-- SECCIÓN 05: CASOS DE ESTUDIO ARQUITECTÓNICOS-->
+		<!-- ========================================== -->
+		<section id="filosofia" class="py-28 md:py-36 px-6 md:px-12 border-b border-graphite/10">
+			<div class="max-w-7xl mx-auto">
+				<!-- Rótulo de Sección -->
+				<div class="flex items-center space-x-4 mb-6 font-mono text-xs uppercase tracking-widest text-lead">
+					<span class="text-pine font-bold">05</span>
+					<span class="w-8 h-[1px] bg-graphite/20"></span>
+					<span>Obras Arquitectónicas de Referencia</span>
+				</div>
+
+				<div class="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-6">
+					<h2 class="font-syne text-4xl sm:text-5xl font-bold tracking-tighter uppercase leading-[0.95]">
+						INTEGRACIÓN<br><span class="text-outline">SILENCIOSA.</span>
+					</h2>
+					<p class="max-w-md text-lead text-sm font-mono leading-relaxed">
+						Proyectos en los que la envolvente vidriada maximiza la luz natural sin penalizar el balance térmico de la edificación.
+					</p>
+				</div>
+
+				<!-- Grid Asimétrico de Proyectos -->
+				<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+					<!-- Proyecto 01 -->
+					<div class="md:col-span-7 group">
+						<div class="aspect-[16/10] overflow-hidden bg-graphite mb-4">
+							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/proyecto-ciudalcampo.jpg' ); ?>" 
+								 alt="Casa Hormigón y Grandes Ventanales de PVC en Ciudalcampo" 
+								 class="w-full h-full object-cover arch-photo-hover" 
+								 loading="lazy" />
+						</div>
+						<div class="flex justify-between items-baseline font-mono text-xs">
+							<div>
+								<span class="font-syne text-xl font-bold text-graphite uppercase block mb-1">CASA HORIZONTE · CIUDALCAMPO</span>
+								<span class="text-lead">140 m² de superficie acristalada · Uw medio 0.71 W/m²K</span>
+							</div>
+							<span class="text-pine font-bold">2025</span>
+						</div>
+					</div>
+
+					<!-- Proyecto 02 -->
+					<div class="md:col-span-5 group">
+						<div class="aspect-[16/10] overflow-hidden bg-graphite mb-4">
+							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/proyecto-salamanca.jpg' ); ?>" 
+								 alt="Rehabilitación con ventanas Passivhaus en el Barrio de Salamanca" 
+								 class="w-full h-full object-cover arch-photo-hover" 
+								 loading="lazy" />
+						</div>
+						<div class="flex justify-between items-baseline font-mono text-xs">
+							<div>
+								<span class="font-syne text-xl font-bold text-graphite uppercase block mb-1">REHABILITACIÓN SALAMANCA</span>
+								<span class="text-lead">Aislamiento acústico de -50 dB frente a eje viario</span>
+							</div>
+							<span class="text-pine font-bold">2026</span>
 						</div>
 					</div>
 				</div>
+			</div>
+		</section>
 
-				<!-- Testimonio 2 -->
-				<div class="vk-review-card vk-reveal">
-					<div class="vk-review-stars">★★★★★</div>
-					<p class="vk-review-quote">"Excelente trato desde la visita al showroom hasta la instalación. Los montadores fueron puntualísimos, extremadamente limpios y protegieron todo el suelo con cartones. Nos cambiaron 8 ventanas en un solo día sin romper ni un solo azulejo."</p>
-					<div class="vk-review-author">
-						<img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150&q=80" alt="Carlos Mendoza" class="vk-author-avatar" loading="lazy" />
+		<!-- ========================================== -->
+		<!-- SECCIÓN 06: SIMULADOR TÉRMICO PARAMÉTRICO  -->
+		<!-- ========================================== -->
+		<section id="simulador" class="py-28 md:py-36 px-6 md:px-12 bg-white/70 border-b border-graphite/10">
+			<div class="max-w-5xl mx-auto">
+				<!-- Rótulo de Sección -->
+				<div class="flex items-center space-x-4 mb-6 font-mono text-xs uppercase tracking-widest text-lead">
+					<span class="text-pine font-bold">06</span>
+					<span class="w-8 h-[1px] bg-graphite/20"></span>
+					<span>Interpolador Paramétrico de Eficiencia</span>
+				</div>
+
+				<div class="mb-12">
+					<h2 class="font-syne text-4xl sm:text-5xl font-bold uppercase tracking-tighter leading-[0.95] mb-4">
+						CALCULA EL IMPACTO<br><span class="text-outline">ENERGÉTICO & FISCAL.</span>
+					</h2>
+					<p class="text-lead text-sm font-mono max-w-xl">
+						Introduce los parámetros de tu vivienda para calcular la amortiguación de pérdidas térmicas, el ahorro en climatización y la deducción en IRPF por eficiencia energética (hasta el 60%).
+					</p>
+				</div>
+
+				<!-- Panel del Configurador Interactivo -->
+				<div class="border border-graphite/20 bg-limestone p-6 md:p-10 shadow-sm">
+					<form id="vk-sim-form" class="space-y-8" onsubmit="event.preventDefault();">
+						<div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+							
+							<!-- Selector 1: Tipología -->
+							<div>
+								<label for="sim-dwelling" class="block uppercase tracking-wider text-graphite font-bold mb-2">1. Tipología Inmueble</label>
+								<select id="sim-dwelling" class="w-full bg-white border border-graphite/30 p-3 text-graphite focus:outline-none focus:border-pine font-mono">
+									<option value="piso">Piso en Bloque Residencial</option>
+									<option value="atico">Ático / Última Planta</option>
+									<option value="unifamiliar" selected>Chalet / Unifamiliar Aislada</option>
+								</select>
+							</div>
+
+							<!-- Selector 2: Carpintería Actual -->
+							<div>
+								<label for="sim-current" class="block uppercase tracking-wider text-graphite font-bold mb-2">2. Ventana Existente</label>
+								<select id="sim-current" class="w-full bg-white border border-graphite/30 p-3 text-graphite focus:outline-none focus:border-pine font-mono">
+									<option value="aluminio_frio" selected>Aluminio antiguo sin RPT (Uw 5.2)</option>
+									<option value="madera_antigua">Madera con vidrio simple (Uw 4.8)</option>
+									<option value="climalit_estandar">PVC/Aluminio con doble vidrio (Uw 2.6)</option>
+								</select>
+							</div>
+
+							<!-- Selector 3: Número de Huecos -->
+							<div>
+								<label for="sim-windows" class="block uppercase tracking-wider text-graphite font-bold mb-2">3. Número de Huecos</label>
+								<select id="sim-windows" class="w-full bg-white border border-graphite/30 p-3 text-graphite focus:outline-none focus:border-pine font-mono">
+									<option value="4">4 a 6 ventanas (Piso estándar)</option>
+									<option value="8" selected>8 a 12 ventanas (Vivienda media)</option>
+									<option value="16">16 o más (Chalet de gran superficie)</option>
+								</select>
+							</div>
+
+						</div>
+
+						<!-- Resultados Dinámicos Calculados -->
+						<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-6 border-t border-graphite/15 font-mono">
+							
+							<div class="bg-white p-5 border border-graphite/10">
+								<span class="text-[10px] text-lead uppercase tracking-widest block mb-1">REDUCCIÓN TRANSMITANCIA</span>
+								<span id="res-uw" class="font-syne text-2xl md:text-3xl font-bold text-graphite block">-78%</span>
+								<span class="text-[10px] text-lead">Uw 5.2 → Uw 0.67 W/m²K</span>
+							</div>
+
+							<div class="bg-white p-5 border border-graphite/10">
+								<span class="text-[10px] text-lead uppercase tracking-widest block mb-1">AHORRO EN CLIMATIZACIÓN</span>
+								<span id="res-savings" class="font-syne text-2xl md:text-3xl font-bold text-pine block">1.180 €</span>
+								<span class="text-[10px] text-lead">Estimación anual media</span>
+							</div>
+
+							<div class="bg-white p-5 border border-graphite/10">
+								<span class="text-[10px] text-lead uppercase tracking-widest block mb-1">DEDUCCIÓN FISCAL IRPF</span>
+								<span id="res-tax" class="font-syne text-2xl md:text-3xl font-bold text-graphite block">60%</span>
+								<span class="text-[10px] text-lead">Real Decreto-ley 19/2021</span>
+							</div>
+
+							<div class="bg-white p-5 border border-graphite/10">
+								<span class="text-[10px] text-lead uppercase tracking-widest block mb-1">ATENUACIÓN ESTIMADA</span>
+								<span id="res-db" class="font-syne text-2xl md:text-3xl font-bold text-pine block">-48 dB</span>
+								<span class="text-[10px] text-lead">Reducción sonora neta</span>
+							</div>
+
+						</div>
+
+						<div class="flex flex-col sm:flex-row justify-between items-center pt-4 gap-4">
+							<span class="font-mono text-xs text-lead">Valores computados conforme al Código Técnico de la Edificación (CTE DB-HE y DB-HR).</span>
+							<a href="#contacto" class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-graphite text-limestone hover:bg-pine px-6 py-3 font-mono text-xs uppercase tracking-widest font-bold transition-colors">
+								<span>Solicitar Auditoría In Situ</span>
+								<span>→</span>
+							</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+
+		<!-- ========================================== -->
+		<!-- SECCIÓN 07: FORMULARIO DE MEDICIÓN LÁSER   -->
+		<!-- ========================================== -->
+		<section id="contacto" class="py-28 md:py-36 px-6 md:px-12 border-b border-graphite/10">
+			<div class="max-w-4xl mx-auto">
+				<!-- Rótulo de Sección -->
+				<div class="flex items-center space-x-4 mb-6 font-mono text-xs uppercase tracking-widest text-lead">
+					<span class="text-pine font-bold">07</span>
+					<span class="w-8 h-[1px] bg-graphite/20"></span>
+					<span>Contacto Técnico & Medición</span>
+				</div>
+
+				<div class="mb-12">
+					<h2 class="font-syne text-4xl sm:text-5xl font-bold uppercase tracking-tighter leading-[0.95] mb-4">
+						SOLICITUD DE<br><span class="text-outline">MEDICIÓN LÁSER.</span>
+					</h2>
+					<p class="text-lead text-sm font-mono leading-relaxed">
+						Un técnico de nuestro departamento de ingeniería se desplazará a la obra con distanciómetro láser para auditar escuadras, tolerancias y puentes térmicos. Sin compromiso comercial.
+					</p>
+				</div>
+
+				<form id="vk-contact-form" class="space-y-6" onsubmit="event.preventDefault(); alert('Solicitud registrada correctamente. Nuestro departamento técnico se pondrá en contacto en menos de 24 horas.');">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 						<div>
-							<strong class="vk-author-name">Carlos Mendoza</strong>
-							<span class="vk-author-info">Chalet en Pozuelo de Alarcón</span>
+							<label for="contact-name" class="block font-mono text-xs uppercase tracking-wider text-graphite font-bold mb-2">Nombre o Estudio de Arquitectura *</label>
+							<input type="text" id="contact-name" required placeholder="Ej: Estudio Álvarez & Asociados" class="w-full bg-white border border-graphite/30 p-3.5 text-graphite focus:outline-none focus:border-pine font-mono text-sm" />
+						</div>
+
+						<div>
+							<label for="contact-phone" class="block font-mono text-xs uppercase tracking-wider text-graphite font-bold mb-2">Teléfono de Contacto Directo *</label>
+							<input type="tel" id="contact-phone" required placeholder="+34 600 000 000" class="w-full bg-white border border-graphite/30 p-3.5 text-graphite focus:outline-none focus:border-pine font-mono text-sm" />
 						</div>
 					</div>
-				</div>
 
-				<!-- Testimonio 3 -->
-				<div class="vk-review-card vk-reveal">
-					<div class="vk-review-stars">★★★★★</div>
-					<p class="vk-review-quote">"Como arquitecta, soy muy exigente con la perfilería y los valores de transmitancia térmica. Vekta cumplió con creces los requerimientos Passivhaus del proyecto. La corredera elevable de 4 metros es una obra de arte mecánica."</p>
-					<div class="vk-review-author">
-						<img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&h=150&q=80" alt="Sofía Valdés" class="vk-author-avatar" loading="lazy" />
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 						<div>
-							<strong class="vk-author-name">Sofía Valdés</strong>
-							<span class="vk-author-info">Arquitecta Bioclimática</span>
+							<label for="contact-location" class="block font-mono text-xs uppercase tracking-wider text-graphite font-bold mb-2">Localidad / Código Postal *</label>
+							<input type="text" id="contact-location" required placeholder="Ej: 28001 Madrid / Pozuelo" class="w-full bg-white border border-graphite/30 p-3.5 text-graphite focus:outline-none focus:border-pine font-mono text-sm" />
+						</div>
+
+						<div>
+							<label for="contact-project-type" class="block font-mono text-xs uppercase tracking-wider text-graphite font-bold mb-2">Tipo de Proyecto</label>
+							<select id="contact-project-type" class="w-full bg-white border border-graphite/30 p-3.5 text-graphite focus:outline-none focus:border-pine font-mono text-sm">
+								<option value="reforma">Reforma Integral de Vivienda</option>
+								<option value="obra_nueva">Obra Nueva Passivhaus</option>
+								<option value="sustitucion">Sustitución de Ventanas Existentes</option>
+								<option value="terciario">Edificación Terciaria / Oficinas</option>
+							</select>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</section>
 
-	<!-- 11. CÓMO TRABAJAMOS (PROCESO EN 4 PASOS SIN ESTRÉS) -->
-	<section class="vk-process-section">
-		<div class="vk-container">
-			<div class="vk-section-header vk-reveal">
-				<span class="vk-section-subtitle">Instalación Garantizada</span>
-				<h2 class="vk-section-title">Tu Nueva Carpintería en 4 Sencillos Pasos</h2>
-				<p class="vk-section-desc">Nos encargamos de todo el proceso de principio a fin, para que tú solo disfrutes del resultado.</p>
-			</div>
+					<div>
+						<label for="contact-notes" class="block font-mono text-xs uppercase tracking-wider text-graphite font-bold mb-2">Especificaciones Particulares (Dimensiones, Aislamiento Acústico, Requisitos)</label>
+						<textarea id="contact-notes" rows="4" placeholder="Indica detalles como orientación de fachada, nivel de ruido exterior o número estimado de huecos..." class="w-full bg-white border border-graphite/30 p-3.5 text-graphite focus:outline-none focus:border-pine font-mono text-sm"></textarea>
+					</div>
 
-			<div class="vk-process-grid">
-				<div class="vk-step-box vk-reveal">
-					<span class="vk-step-badge-num">01</span>
-					<h3 class="vk-step-title">Presupuesto y Asesoramiento</h3>
-					<p class="vk-step-desc">Analizamos tu plano o necesidades y te proporcionamos una propuesta clara con desglose técnico en menos de 24 horas.</p>
-				</div>
-				<div class="vk-step-box vk-reveal">
-					<span class="vk-step-badge-num">02</span>
-					<h3 class="vk-step-title">Medición Láser Gratuita</h3>
-					<p class="vk-step-desc">Uno de nuestros técnicos especialistas acude a tu domicilio para verificar cotas con distanciómetro láser y revisar cajones y remates.</p>
-				</div>
-				<div class="vk-step-box vk-reveal">
-					<span class="vk-step-badge-num">03</span>
-					<h3 class="vk-step-title">Fabricación a Medida</h3>
-					<p class="vk-step-desc">Fabricamos tus ventanas en planta automatizada con perfiles de primera extrusión y soldaduras invisibles de alta estética.</p>
-				</div>
-				<div class="vk-step-box vk-reveal">
-					<span class="vk-step-badge-num">04</span>
-					<h3 class="vk-step-title">Montaje Limpio en 1 Día</h3>
-					<p class="vk-step-desc">Instaladores propios homologados. Retiramos y reciclamos tus ventanas viejas y dejamos tu hogar impecable y aspirado.</p>
-				</div>
-			</div>
-		</div>
-	</section>
+					<div class="flex items-start space-x-3 pt-2">
+						<input type="checkbox" id="contact-privacy" required class="mt-1 accent-pine w-4 h-4" />
+						<label for="contact-privacy" class="font-mono text-xs text-lead">
+							Acepto la política de tratamiento de datos técnicos para la emisión del informe de medición según el RGPD (UE) 2016/679.
+						</label>
+					</div>
 
-	<!-- 12. PREGUNTAS FRECUENTES (FAQ ACORDEÓN INTERACTIVO) -->
-	<section class="vk-faq-section" id="faq">
-		<div class="vk-container">
-			<div class="vk-section-header vk-reveal">
-				<span class="vk-section-subtitle">Resolvemos tus Dudas</span>
-				<h2 class="vk-section-title">Preguntas Frecuentes sobre Ventanas de PVC</h2>
-				<p class="vk-section-desc">Todo lo que necesitas saber antes de sustituir la carpintería de tu vivienda.</p>
+					<div class="pt-4">
+						<button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center space-x-3 bg-graphite text-limestone hover:bg-pine px-8 py-4 font-mono text-xs uppercase tracking-widest font-bold transition-all duration-300">
+							<span>Confirmar Solicitud de Medición Láser</span>
+							<span>→</span>
+						</button>
+					</div>
+				</form>
 			</div>
+		</section>
 
-			<div class="vk-faq-accordion vk-reveal">
-				<!-- FAQ 1 -->
-				<div class="vk-faq-item">
-					<button type="button" class="vk-faq-trigger" aria-expanded="false">
-						<span>¿Es necesario hacer obra para cambiar las ventanas?</span>
-						<span class="vk-faq-icon">+</span>
-					</button>
-					<div class="vk-faq-panel">
-						<p>No. En el 95% de las sustituciones residenciales realizamos una instalación sin obra invasiva. Retiramos la hoja y el marco antiguo sobre el premarco de obra original, sellamos con polímero aislante termoacústico y colocamos remates de terminación a juego. El cambio de una vivienda estándar se completa en un solo día sin dañar pintura ni alicatados.</p>
+		<!-- ========================================== -->
+		<!-- FOOTER MONOLÍTICO NEGRO GRAFITO            -->
+		<!-- ========================================== -->
+		<footer class="bg-graphite text-limestone pt-20 pb-12 px-6 md:px-12 border-t border-white/10 architectural-grid-dark">
+			<div class="max-w-7xl mx-auto">
+				<!-- Gran Logotipo Monumental -->
+				<div class="border-b border-white/10 pb-16 mb-16">
+					<span class="font-syne font-extrabold text-[clamp(2.5rem,11vw,10.5rem)] leading-none tracking-tighter uppercase block text-white/90">
+						VEKTA SYSTEMS
+					</span>
+				</div>
+
+				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 font-mono text-xs text-lead mb-16">
+					<div>
+						<span class="text-white uppercase font-bold tracking-widest block mb-4">CENTRO TÉCNICO & FÁBRICA</span>
+						<p class="leading-relaxed">
+							C/ Arquitectura 14, Polígono Tecnológico<br>
+							28001 Madrid, España<br>
+							Tel: +34 900 831 240<br>
+							Mail: ingenieria@vekta.es
+						</p>
+					</div>
+
+					<div>
+						<span class="text-white uppercase font-bold tracking-widest block mb-4">CERTIFICACIONES</span>
+						<ul class="space-y-1.5">
+							<li>Passivhaus Institut Darmstadt</li>
+							<li>Marcado CE UNE-EN 14351-1</li>
+							<li>Cradle to Cradle® Silver</li>
+							<li>ISO 9001:2015 de Gestión</li>
+						</ul>
+					</div>
+
+					<div>
+						<span class="text-white uppercase font-bold tracking-widest block mb-4">SISTEMAS HOMOLOGADOS</span>
+						<ul class="space-y-1.5">
+							<li>Vekta 82 Passivhaus Pro</li>
+							<li>Horizon Slide 4.0 Cota Cero</li>
+							<li>Silence Extreme 52 dB</li>
+							<li>Pivot Monolith Security RC3</li>
+						</ul>
+					</div>
+
+					<div>
+						<span class="text-white uppercase font-bold tracking-widest block mb-4">HORARIO DE ATENCIÓN</span>
+						<p class="leading-relaxed">
+							Lunes a Jueves: 08:00 - 18:30<br>
+							Viernes: 08:00 - 15:00<br>
+							Visitas a fábrica con cita previa.
+						</p>
 					</div>
 				</div>
 
-				<!-- FAQ 2 -->
-				<div class="vk-faq-item">
-					<button type="button" class="vk-faq-trigger" aria-expanded="false">
-						<span>¿Qué diferencia hay realmente entre una ventana de PVC y una de aluminio?</span>
-						<span class="vk-faq-icon">+</span>
-					</button>
-					<div class="vk-faq-panel">
-						<p>El PVC es un material aislante natural (no conduce el calor ni el frío), mientras que el aluminio es un metal altamente conductor que requiere rotura de puente térmico (RPT) plástica añadida para evitar condensaciones. En igualdad de precio, el PVC ofrece entre un 35% y un 50% mayor aislamiento térmico y una capacidad de atenuación acústica muy superior.</p>
+				<div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center font-mono text-[11px] text-lead gap-4">
+					<div>
+						© <?php echo esc_html( date( 'Y' ) ); ?> VEKTA SYSTEMS S.L. Todos los derechos reservados.
 					</div>
-				</div>
-
-				<!-- FAQ 3 -->
-				<div class="vk-faq-item">
-					<button type="button" class="vk-faq-trigger" aria-expanded="false">
-						<span>¿Cómo funcionan las subvenciones del Plan Renove y Fondos NextGeneration?</span>
-						<span class="vk-faq-icon">+</span>
-					</button>
-					<div class="vk-faq-panel">
-						<p>Nuestras series Vekta 76 y 88 cumplen holgadamente los requisitos del Código Técnico de la Edificación (CTE) y los programas de ayudas europeas a la rehabilitación energética. La ayuda puede suponer entre el 30% y el 40% del coste total de la factura (hasta 3.000 € por vivienda). Desde nuestro departamento técnico tramitamos y preparamos todos los certificados energéticos de forma 100% gratuita para ti.</p>
-					</div>
-				</div>
-
-				<!-- FAQ 4 -->
-				<div class="vk-faq-item">
-					<button type="button" class="vk-faq-trigger" aria-expanded="false">
-						<span>¿El color gris antracita o negro se desgasta o decolora con el sol?</span>
-						<span class="vk-faq-icon">+</span>
-					</button>
-					<div class="vk-faq-panel">
-						<p>No. Utilizamos exclusivamente láminas de foliado exterior con tecnología de reflexión de infrarrojos <em>Cool Colors</em> de origen alemán. Esta tecnología refleja la radiación solar y evita que el perfil se caliente o sufra dilataciones, garantizando el color y la textura intactos con una garantía oficial por escrito de 15 años.</p>
-					</div>
-				</div>
-
-				<!-- FAQ 5 -->
-				<div class="vk-faq-item">
-					<button type="button" class="vk-faq-trigger" aria-expanded="false">
-						<span>¿Qué garantía tienen las ventanas Vekta?</span>
-						<span class="vk-faq-icon">+</span>
-					</button>
-					<div class="vk-faq-panel">
-						<p>Ofrecemos 15 años de garantía total en perfiles contra envejecimiento, pérdida de color y deformación; 10 años en estanqueidad de cámaras de vidrio Guardian Sun y 5 años en herrajes perimetrales Roto Frank, además de 2 años de garantía total sobre la instalación.</p>
+					<div class="flex space-x-6">
+						<a href="#" class="hover:text-white transition-colors">Aviso Legal</a>
+						<a href="#" class="hover:text-white transition-colors">Política de Privacidad</a>
+						<a href="#" class="hover:text-white transition-colors">Fichas Técnicas PDF</a>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</footer>
 
-	<!-- 13. BANNER CTA FINAL DE CAPTACIÓN URGENTE -->
-	<section class="vk-final-cta-section">
-		<div class="vk-container">
-			<div class="vk-cta-banner-card vk-reveal">
-				<div class="vk-cta-banner-content">
-					<span class="vk-badge-pill eco">Convocatoria Abierta</span>
-					<h2 class="vk-cta-title">¿Listo para Aislar tu Hogar del Frío, el Calor y el Ruido?</h2>
-					<p class="vk-cta-text">Pide tu estudio energético y medición gratuita sin ningún compromiso. Recibe asesoramiento de un ingeniero de producto de Vekta en tu propia casa.</p>
-					<div class="vk-cta-btn-row">
-						<a href="#configurador" class="vk-btn-primary vk-btn-lg">Pedir Medición Gratuita &rarr;</a>
-						<a href="tel:900831240" class="vk-btn-ghost vk-btn-lg">Llamar Ahora al 900 831 240</a>
-					</div>
-				</div>
-				<div class="vk-cta-banner-badge-aside">
-					<div class="vk-guarantee-seal">
-						<span class="seal-icon" aria-hidden="true">
-							<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-						</span>
-						<strong>15 Años</strong>
-						<span>Garantía de Fábrica</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+	</div><!-- /#smooth-wrapper -->
 
-</main>
+	<!-- ========================================== -->
+	<!-- SCRIPTS DE MOVIMIENTO & GSAP + LENIS       -->
+	<!-- ========================================== -->
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-<!-- 14. FOOTER CORPORATIVO MASIVO (Landmark contentinfo fuera de main) -->
-<footer class="vk-footer" id="contacto" role="contentinfo">
-	<div class="vk-container">
-		<div class="vk-footer-grid">
-			<!-- Columna 1: Marca y Misión -->
-			<div class="vk-footer-brand">
-				<div class="vk-brand-logo">
-					<div class="vk-logo-mark">V</div>
-					<div class="vk-brand-text-wrap">
-						<span class="vk-brand-name">VEKTA <span>VENTANAS</span></span>
-						<span class="vk-brand-tagline">Architectural PVC Systems</span>
-					</div>
-				</div>
-				<p>Empresa líder en carpintería arquitectónica en PVC de alta eficiencia energética, control solar y aislamiento acústico. Distribuidor e instalador oficial homologado Kömmerling®.</p>
-				<div class="vk-cert-badges">
-					<span class="vk-cert-tag">Passivhaus Institut</span>
-					<span class="vk-cert-tag">Marcado CE</span>
-					<span class="vk-cert-tag">AENOR ISO 9001</span>
-					<span class="vk-cert-tag">CTE DB-HE</span>
-				</div>
-			</div>
+			// 1. Inicialización de Lenis Smooth Scroll sincronizado con GSAP Ticker
+			let lenis = null;
+			if (!prefersReduced && typeof Lenis !== 'undefined') {
+				lenis = new Lenis({
+					duration: 1.1,
+					easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+					orientation: 'vertical',
+					smoothWheel: true,
+					wheelMultiplier: 0.9
+				});
 
-			<!-- Columna 2: Sistemas -->
-			<div>
-				<h4 class="vk-footer-title">Sistemas de Carpintería</h4>
-				<ul class="vk-footer-links">
-					<li><a href="#soluciones">Ventanas Abatibles Confort 76</a></li>
-					<li><a href="#soluciones">Correderas Elevables Panorama Slide</a></li>
-					<li><a href="#soluciones">Sistemas Passivhaus 88 Ultra</a></li>
-					<li><a href="#soluciones">Puertas de Entrada Acorazadas Safe</a></li>
-					<li><a href="#soluciones">Cajones de Persiana ThermoBox</a></li>
-					<li><a href="#soluciones">Correderas Osciloparalelas</a></li>
-				</ul>
-			</div>
+				lenis.on('scroll', ScrollTrigger.update);
+				gsap.ticker.add((time) => lenis.raf(time * 1000));
+				gsap.ticker.lagSmoothing(0);
 
-			<!-- Columna 3: Información y Ayudas -->
-			<div>
-				<h4 class="vk-footer-title">Servicios & Ayudas</h4>
-				<ul class="vk-footer-links">
-					<li><a href="#simulador">Simulador Acústico & Térmico</a></li>
-					<li><a href="#configurador">Calculadora de Presupuestos</a></li>
-					<li><a href="#faq">Subvenciones Plan Renove 2026</a></li>
-					<li><a href="#ingenieria">Instalación sin Obras en 24h</a></li>
-					<li><a href="#proyectos">Galería de Obras Terminadas</a></li>
-					<li><a href="#opiniones">Opiniones Verificadas de Clientes</a></li>
-				</ul>
-			</div>
+				// Soporte de anclas para Lenis
+				document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+					anchor.addEventListener('click', function(e) {
+						const targetId = this.getAttribute('href');
+						if (targetId && targetId !== '#') {
+							const targetEl = document.querySelector(targetId);
+							if (targetEl) {
+								e.preventDefault();
+								lenis.scrollTo(targetEl, { offset: -20 });
+							}
+						}
+					});
+				});
+			}
 
-			<!-- Columna 4: Showroom Central & Contacto -->
-			<div>
-				<h4 class="vk-footer-title">Showroom & Asistencia</h4>
-				<ul class="vk-footer-links">
-					<li><span style="display:inline-flex; align-items:flex-start; gap:0.5rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0; margin-top: 3px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Parque Tecnológico, C/ Arquitectura 14, Madrid</span></li>
-					<li><span style="display:inline-flex; align-items:center; gap:0.5rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Lunes a Viernes: 9:00 a 19:30</span></li>
-					<li><span style="display:inline-flex; align-items:center; gap:0.5rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Sábados: 10:00 a 14:00 (Cita previa)</span></li>
-					<li><span style="display:inline-flex; align-items:center; gap:0.5rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <a href="tel:900831240">900 831 240</a> (Llamada Gratuita)</span></li>
-					<li><span style="display:inline-flex; align-items:center; gap:0.5rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> <a href="mailto:proyectos@vektaventanas.com">proyectos@vektaventanas.com</a></span></li>
-				</ul>
-				<div style="margin-top: 1.25rem;">
-					<a href="#configurador" class="vk-btn-secondary" style="font-size: 0.85rem; padding: 0.6rem 1.2rem; width: 100%;">Agendar Cita en Showroom</a>
-				</div>
-			</div>
-		</div>
+			// 2. Cursor Láser Micrométrico en Desktop
+			const cursorEl = document.getElementById('vk-cursor');
+			const cursorCoords = document.getElementById('vk-cursor-coords');
+			const cursorRing = document.getElementById('vk-cursor-ring');
+			const cursorDot = document.getElementById('vk-cursor-dot');
 
-		<div class="vk-footer-bottom">
-			<div class="vk-footer-legal">
-				<span>&copy; <?php echo date( 'Y' ); ?> Vekta Ventanas S.L. — NIF B-89241562. Todos los derechos reservados.</span>
-			</div>
-			<div class="vk-footer-legal-links">
-				<a href="#">Aviso Legal</a>
-				<span class="vk-sep">•</span>
-				<a href="#">Política de Privacidad</a>
-				<span class="vk-sep">•</span>
-				<a href="#">Política de Cookies</a>
-				<span class="vk-sep">•</span>
-				<a href="#">Condiciones de Garantía 15 Años</a>
-			</div>
-		</div>
-	</div>
-</footer>
+			if (cursorEl && !prefersReduced && window.innerWidth >= 768) {
+				const xTo = gsap.quickTo(cursorEl, "x", { duration: 0.12, ease: "power3" });
+				const yTo = gsap.quickTo(cursorEl, "y", { duration: 0.12, ease: "power3" });
 
-<!-- 15. WIDGET FLOTANTE DE WHATSAPP / CONTACTO RÁPIDO -->
-<aside class="vk-floating-whatsapp" aria-label="Contacto directo por WhatsApp">
-	<a href="https://wa.me/34900831240?text=Hola%20Vekta%20Ventanas,%20estoy%20interesado%20en%20un%20presupuesto%20para%20cambiar%20las%20ventanas%20de%20mi%20vivienda." target="_blank" rel="noopener noreferrer" class="vk-whatsapp-btn" aria-label="Abrir conversación de WhatsApp con un asesor de Vekta">
-		<div class="vk-whatsapp-tooltip">
-			<span class="tooltip-title">¿Dudas sobre tus ventanas?</span>
-			<span class="tooltip-sub">Chatea en directo con un técnico</span>
-		</div>
-		<div class="vk-whatsapp-icon-circle">
-			<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-				<path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.04 7.59C8.88 7.59 8.62 7.65 8.41 7.88C8.2 8.11 7.6 8.67 7.6 9.82C7.6 10.97 8.44 12.07 8.56 12.23C8.68 12.39 10.18 14.71 12.5 15.71C13.06 15.95 13.5 16.1 13.84 16.21C14.4 16.39 14.91 16.36 15.32 16.3C15.77 16.23 16.71 15.73 16.91 15.17C17.11 14.61 17.11 14.13 17.05 14.03C16.99 13.93 16.83 13.87 16.59 13.75C16.35 13.63 15.17 13.05 14.95 12.97C14.73 12.89 14.57 12.85 14.41 13.09C14.25 13.33 13.79 13.87 13.65 14.03C13.51 14.19 13.37 14.21 13.13 14.09C12.89 13.97 11.88 13.64 10.68 12.57C9.75 11.74 9.12 10.72 8.96 10.48C8.8 10.24 8.94 10.11 9.06 9.99C9.17 9.88 9.31 9.7 9.43 9.56C9.55 9.42 9.59 9.32 9.67 9.16C9.75 9 9.71 8.86 9.65 8.74C9.59 8.62 9.13 7.49 8.94 7.03C8.75 6.58 8.56 6.64 8.41 6.63C8.28 6.62 8.12 6.62 7.96 6.62"/>
-			</svg>
-			<span class="vk-whatsapp-pulse"></span>
-		</div>
-	</a>
-</aside>
+				window.addEventListener('mousemove', (e) => {
+					xTo(e.clientX);
+					yTo(e.clientY);
+					if (cursorCoords) {
+						cursorCoords.textContent = `X:${String(e.clientX).padStart(4, '0')} Y:${String(e.clientY).padStart(4, '0')}`;
+					}
+				});
 
-<?php wp_footer(); ?>
+				// Hover sobre enlaces y botones
+				document.querySelectorAll('a, button, input, select, textarea, .acoustic-toggle, .vk-hotspot').forEach((interactive) => {
+					interactive.addEventListener('mouseenter', () => {
+						if (cursorRing) cursorRing.style.transform = 'scale(1.8)';
+						if (cursorDot) cursorDot.style.backgroundColor = '#C6FF00';
+					});
+					interactive.addEventListener('mouseleave', () => {
+						if (cursorRing) cursorRing.style.transform = 'scale(1)';
+						if (cursorDot) cursorDot.style.backgroundColor = '#FFFFFF';
+					});
+				});
+			}
+
+			// 3. Preloader Editorial Animado
+			const preloader = document.getElementById('vk-preloader');
+			const preloaderCount = document.getElementById('vk-preloader-count');
+
+			if (preloader) {
+				if (prefersReduced) {
+					preloader.style.display = 'none';
+				} else {
+					const counterObj = { val: 0 };
+					gsap.to(counterObj, {
+						val: 100,
+						duration: 1.2,
+						ease: "power2.out",
+						onUpdate: () => {
+							if (preloaderCount) preloaderCount.textContent = Math.round(counterObj.val) + '%';
+						},
+						onComplete: () => {
+							gsap.to(preloader, {
+								yPercent: -100,
+								duration: 0.9,
+								ease: "power4.inOut",
+								onComplete: () => {
+									preloader.style.display = 'none';
+									animateHeroEntrance();
+								}
+							});
+						}
+					});
+				}
+			} else {
+				animateHeroEntrance();
+			}
+
+			// 4. Reveal Tipográfico del Hero con Máscaras
+			function animateHeroEntrance() {
+				if (prefersReduced) return;
+				const heroLines = document.querySelectorAll('.hero-split');
+				if (heroLines.length > 0) {
+					gsap.fromTo(heroLines, 
+						{ yPercent: 100, opacity: 0 },
+						{ yPercent: 0, opacity: 1, duration: 1.1, stagger: 0.15, ease: "power4.out" }
+					);
+				}
+			}
+
+			// 5. Interacción del Freno Acústico y Osciloscopio
+			const acousticToggles = document.querySelectorAll('.acoustic-toggle');
+			const soundPath = document.getElementById('vk-sound-path');
+			const dbDisplay = document.getElementById('vk-db-display');
+			const equivDisplay = document.getElementById('vk-equiv-display');
+
+			const soundWaves = {
+				'85': {
+					path: 'M 0 50 Q 25 -20, 50 50 T 100 50 T 150 50 T 200 50 T 250 50 T 300 50 T 350 50 T 400 50 T 450 50 T 500 50',
+					color: '#F87171',
+					text: 'Tráfico urbano caótico'
+				},
+				'52': {
+					path: 'M 0 50 Q 50 20, 100 50 T 200 50 T 300 50 T 400 50 T 500 50',
+					color: '#FDE047',
+					text: 'Atenuación débil ordinaria'
+				},
+				'18': {
+					path: 'M 0 50 L 500 50',
+					color: '#C6FF00',
+					text: 'Susurro en biblioteca'
+				}
+			};
+
+			acousticToggles.forEach((btn) => {
+				btn.addEventListener('click', () => {
+					acousticToggles.forEach(b => {
+						b.classList.remove('bg-pine/30', 'border-laser/40');
+						b.classList.add('bg-white/5', 'border-white/10');
+					});
+					btn.classList.add('bg-pine/30', 'border-laser/40');
+					btn.classList.remove('bg-white/5', 'border-white/10');
+
+					const db = btn.getAttribute('data-db');
+					const wave = soundWaves[db] || soundWaves['18'];
+
+					if (dbDisplay) dbDisplay.textContent = `${db} dB`;
+					if (equivDisplay) equivDisplay.textContent = wave.text;
+
+					if (soundPath) {
+						gsap.to(soundPath, {
+							attr: { d: wave.path, stroke: wave.color },
+							duration: 0.6,
+							ease: "power2.out"
+						});
+					}
+				});
+			});
+
+			// 6. Hotspots del Despiece Celular
+			const hotspots = document.querySelectorAll('.vk-hotspot');
+			const spotNum = document.getElementById('vk-spot-num');
+			const spotTitle = document.getElementById('vk-spot-title');
+			const spotDesc = document.getElementById('vk-spot-desc');
+			const spotSpec = document.getElementById('vk-spot-spec');
+
+			const spotData = {
+				'1': {
+					num: 'COMPONENTE 01',
+					title: '7 CÁMARAS DE AIRE ESTANCO',
+					desc: 'Geometría celular calculada mediante análisis de elementos finitos térmicos (FEM). Minimiza los gradientes de temperatura interna y asegura un coeficiente Uf del marco de 0.92 W/m²K.',
+					spec: 'NORMATIVA: UNE-EN 12608 / CLASE A'
+				},
+				'2': {
+					num: 'COMPONENTE 02',
+					title: 'ALMA DE REFUERZO DESACOPLADA',
+					desc: 'Estructura de acero cincado de 2mm tratada contra corrosión y embutida sin tocar las paredes exteriores para eliminar por completo el puente térmico metálico.',
+					spec: 'RESISTENCIA MECÁNICA: CLASE C5 (2000 Pa)'
+				},
+				'3': {
+					num: 'COMPONENTE 03',
+					title: 'TRIPLE JUNTA PERIMETRAL EPDM',
+					desc: 'Junta central de estanqueidad continua soldada en esquinas. Resiste la presión de viento huracanado y evita la entrada de micropartículas contaminantes y polen.',
+					spec: 'ESTANQUEIDAD AL AGUA: CLASE E1500 (EN 12208)'
+				},
+				'4': {
+					num: 'COMPONENTE 04',
+					title: 'TRIPLE VIDRIO CON GAS ARGÓN 90%',
+					desc: 'Tres lunas de vidrio (incluyendo lámina de control solar y capa bajo emisiva) con cámaras de 16mm cargadas con gas noble Argón para una transmitancia Ug de 0.5 W/m²K.',
+					spec: 'AISLAMIENTO TÉRMICO VIDRIO: Ug = 0.5 W/m²K'
+				}
+			};
+
+			hotspots.forEach((spot) => {
+				spot.addEventListener('click', () => {
+					const pt = spot.getAttribute('data-point');
+					const data = spotData[pt];
+					if (data) {
+						if (spotNum) spotNum.textContent = data.num;
+						if (spotTitle) spotTitle.textContent = data.title;
+						if (spotDesc) spotDesc.textContent = data.desc;
+						if (spotSpec) spotSpec.innerHTML = `<span class="text-lead">NORMATIVA: </span><span class="text-white font-bold">${data.spec}</span>`;
+
+						hotspots.forEach(s => s.classList.remove('bg-laser', 'text-graphite'));
+						spot.classList.add('bg-laser', 'text-graphite');
+					}
+				});
+			});
+
+			// 7. Lógica del Simulador Paramétrico
+			const dwellingSelect = document.getElementById('sim-dwelling');
+			const currentSelect = document.getElementById('sim-current');
+			const windowsSelect = document.getElementById('sim-windows');
+
+			const resUw = document.getElementById('res-uw');
+			const resSavings = document.getElementById('res-savings');
+			const resTax = document.getElementById('res-tax');
+			const resDb = document.getElementById('res-db');
+
+			function updateSimulation() {
+				const dwelling = dwellingSelect ? dwellingSelect.value : 'unifamiliar';
+				const current = currentSelect ? currentSelect.value : 'aluminio_frio';
+				const numWindows = windowsSelect ? parseInt(windowsSelect.value, 10) : 8;
+
+				let baseUw = 5.2;
+				let baseSavingsPerWindow = 120;
+				let dbReduction = '-48 dB';
+
+				if (current === 'madera_antigua') {
+					baseUw = 4.8;
+					baseSavingsPerWindow = 105;
+					dbReduction = '-45 dB';
+				} else if (current === 'climalit_estandar') {
+					baseUw = 2.6;
+					baseSavingsPerWindow = 65;
+					dbReduction = '-35 dB';
+				}
+
+				if (dwelling === 'unifamiliar') baseSavingsPerWindow *= 1.35;
+				if (dwelling === 'atico') baseSavingsPerWindow *= 1.2;
+
+				const totalSavings = Math.round(baseSavingsPerWindow * numWindows);
+				const percentUw = Math.round(((baseUw - 0.67) / baseUw) * 100);
+
+				if (resUw) resUw.textContent = `-${percentUw}%`;
+				if (resSavings) resSavings.textContent = `${totalSavings.toLocaleString('es-ES')} €`;
+				if (resDb) resDb.textContent = dbReduction;
+				if (resTax) resTax.textContent = dwelling === 'unifamiliar' ? '60%' : '40%';
+			}
+
+			if (dwellingSelect && currentSelect && windowsSelect) {
+				dwellingSelect.addEventListener('change', updateSimulation);
+				currentSelect.addEventListener('change', updateSimulation);
+				windowsSelect.addEventListener('change', updateSimulation);
+			}
+		});
+	</script>
+
+	<?php wp_footer(); ?>
 </body>
 </html>

@@ -13,16 +13,19 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Encolar estilos y scripts del tema
  */
 function vekta_enqueue_scripts() {
+	// Si estamos en la portada, se utiliza la arquitectura visual de Stitch (Aura Architectural Systems)
+	if ( is_front_page() ) {
+		return;
+	}
+
 	// 1. Estilos del tema padre GeneratePress (solo para páginas estándar de blog)
 	$parent_version = defined( 'GENERATE_VERSION' ) ? GENERATE_VERSION : VEKTA_VERSION;
-	if ( ! is_front_page() ) {
-		wp_enqueue_style(
-			'generatepress-parent-style',
-			get_template_directory_uri() . '/style.css',
-			array(),
-			$parent_version
-		);
-	}
+	wp_enqueue_style(
+		'generatepress-parent-style',
+		get_template_directory_uri() . '/style.css',
+		array(),
+		$parent_version
+	);
 
 	// 2. Google Fonts (Plus Jakarta Sans y Outfit) optimizadas
 	wp_enqueue_style(
@@ -109,7 +112,7 @@ function vekta_seo_meta_and_schema() {
 		<meta property="og:url" content="<?php echo esc_url( home_url( '/' ) ); ?>">
 		<meta property="og:title" content="Vekta Ventanas | Carpintería Arquitectónica de PVC y Aislamiento Acústico">
 		<meta property="og:description" content="Ventanas de PVC de alta ingeniería: confort térmico, silencio absoluto y ahorro de hasta el 65% en climatización.">
-		<meta property="og:image" content="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80">
+		<meta property="og:image" content="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/hero-architecture.jpg' ); ?>">
 		<script type="application/ld+json">
 		{
 			"@context": "https://schema.org",

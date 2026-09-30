@@ -14,3 +14,6 @@ vendor-parent/
 .dsh/
 .gemini/
 .opencode/
+screenshot-*.png
+design-system/
+pnpm-workspace.yaml

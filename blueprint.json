@@ -11,16 +11,6 @@
   },
   "steps": [
     {
-      "step": "installTheme",
-      "themeData": {
-        "resource": "wordpress.org/themes",
-        "slug": "generatepress"
-      },
-      "options": {
-        "activate": false
-      }
-    },
-    {
       "step": "activateTheme",
       "themeFolderName": "vekta-ventanas"
     }
