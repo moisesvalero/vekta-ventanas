@@ -75,6 +75,39 @@ async function runTests() {
     fullPage: false,
   });
 
+  // 0. Probar Panel Deslizable Superior (Ficha de Laboratorio)
+  console.log(
+    "\n--- Probando Panel Deslizable Superior (Ficha de Laboratorio) ---",
+  );
+  const preloader = page.locator("#vk-preloader");
+
+  // Mover cursor a la zona superior (Y = 5px)
+  await page.mouse.move(700, 5);
+  await page.waitForTimeout(600);
+  const isPreloaderDown = await preloader.evaluate((el) => {
+    const matrix = new DOMMatrix(window.getComputedStyle(el).transform);
+    return Math.abs(matrix.m42) < 15; // yPercent: 0
+  });
+  console.log(
+    "Panel deslizado hacia abajo al posar cursor arriba:",
+    isPreloaderDown,
+  );
+
+  await page.screenshot({
+    path: "screenshot-lab-drawer-open.png",
+    fullPage: false,
+  });
+
+  // Cerrar panel pulsando el botón [×]
+  const closeBtn = page.locator("#vk-close-preloader");
+  await closeBtn.click();
+  await page.waitForTimeout(700);
+  const isPreloaderClosed = await preloader.evaluate((el) => {
+    const matrix = new DOMMatrix(window.getComputedStyle(el).transform);
+    return matrix.m42 < -200; // yPercent: -100
+  });
+  console.log("Panel cerrado tras pulsar [×]:", isPreloaderClosed);
+
   // 1. Probar Freno Acústico
   console.log("\n--- Probando Freno Acústico y Osciloscopio ---");
   const dbDisplay = page.locator("#vk-db-display");

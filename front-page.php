@@ -180,14 +180,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 
-	<!-- Preloader / Apertura de Umbral Arquitectónico -->
-	<div id="vk-preloader" class="fixed inset-0 bg-graphite text-limestone z-[100] flex flex-col justify-between p-8 md:p-14 select-none">
+	<!-- Zona de Gatillo Hover Superior (Deslizar Ficha de Laboratorio) -->
+	<div id="vk-top-hover-trigger" class="fixed top-0 left-0 right-0 h-3.5 z-[101] pointer-events-auto" title="Deslizar panel de laboratorio"></div>
+
+	<!-- Preloader / Panel Deslizable de Laboratorio Arquitectónico -->
+	<div id="vk-preloader" class="fixed inset-0 bg-graphite text-limestone z-[100] flex flex-col justify-between p-8 md:p-14 select-none shadow-2xl transition-shadow">
 		<div class="flex items-center justify-between font-mono text-xs text-lead border-b border-white/10 pb-4">
 			<div class="flex items-center space-x-2">
 				<span class="w-2 h-2 rounded-full bg-laser animate-pulse"></span>
 				<span class="tracking-widest">VEKTA SYSTEMS // ARCHITECTURAL LAB</span>
 			</div>
-			<span>MADRID · 40.4168° N, 3.7038° W</span>
+			<div class="flex items-center space-x-6">
+				<span>MADRID · 40.4168° N, 3.7038° W</span>
+				<button id="vk-close-preloader" class="hidden text-xs font-mono uppercase tracking-widest text-white/80 hover:text-laser border border-white/20 hover:border-laser px-3 py-1 transition-colors flex items-center space-x-1.5 cursor-pointer pointer-events-auto" aria-label="Cerrar panel de laboratorio">
+					<span>Cerrar</span>
+					<span class="text-laser font-bold">[×]</span>
+				</button>
+			</div>
 		</div>
 
 		<div class="max-w-4xl">
@@ -228,6 +237,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span class="hidden sm:inline">PRODUCCIÓN ROBOTIZADA ACTIVA</span>
 				</div>
 				<div class="flex items-center space-x-6">
+					<button id="vk-trigger-lab-btn" class="hidden md:inline-flex items-center space-x-1.5 text-lead hover:text-graphite font-mono text-[11px] transition-colors cursor-pointer group" title="Deslizar ficha de laboratorio">
+						<span class="w-1.5 h-1.5 rounded-full bg-laser group-hover:scale-125 transition-transform"></span>
+						<span class="underline decoration-dotted">Ficha de Laboratorio ▾</span>
+					</button>
+					<span class="hidden md:inline text-graphite/30">|</span>
 					<span class="hidden md:inline">TRANSMITANCIA MÍNIMA: <strong class="text-graphite">Uw 0.67</strong> W/m²K</span>
 					<span class="text-graphite font-semibold">TEL: +34 900 831 240</span>
 				</div>
@@ -1084,9 +1098,43 @@ if ( ! defined( 'ABSPATH' ) ) {
 				});
 			}
 
-			// 3. Preloader Editorial Animado
+			// 3. Preloader Editorial Animado & Panel Desplegable Superior
 			const preloader = document.getElementById('vk-preloader');
 			const preloaderCount = document.getElementById('vk-preloader-count');
+			const closePreloaderBtn = document.getElementById('vk-close-preloader');
+			const topTrigger = document.getElementById('vk-top-hover-trigger');
+			const labBtn = document.getElementById('vk-trigger-lab-btn');
+
+			let isLabOpen = false;
+			let hoverTopTimer = null;
+
+			function openLabDrawer() {
+				if (!preloader || isLabOpen) return;
+				isLabOpen = true;
+				gsap.killTweensOf(preloader);
+				gsap.to(preloader, {
+					yPercent: 0,
+					duration: 0.7,
+					ease: "power4.out",
+					onStart: () => {
+						preloader.style.pointerEvents = 'auto';
+					}
+				});
+			}
+
+			function closeLabDrawer() {
+				if (!preloader || !isLabOpen) return;
+				isLabOpen = false;
+				gsap.killTweensOf(preloader);
+				gsap.to(preloader, {
+					yPercent: -100,
+					duration: 0.6,
+					ease: "power4.inOut",
+					onComplete: () => {
+						preloader.style.pointerEvents = 'none';
+					}
+				});
+			}
 
 			if (preloader) {
 				if (prefersReduced) {
@@ -1106,13 +1154,80 @@ if ( ! defined( 'ABSPATH' ) ) {
 								duration: 0.9,
 								ease: "power4.inOut",
 								onComplete: () => {
-									preloader.style.display = 'none';
+									preloader.style.pointerEvents = 'none';
+									if (closePreloaderBtn) closePreloaderBtn.classList.remove('hidden');
 									animateHeroEntrance();
 								}
 							});
 						}
 					});
 				}
+
+				// Gatillo 1: Zona superior de la pantalla (dejar cursor arriba)
+				if (topTrigger) {
+					topTrigger.addEventListener('mouseenter', () => {
+						clearTimeout(hoverTopTimer);
+						hoverTopTimer = setTimeout(openLabDrawer, 120);
+					});
+					topTrigger.addEventListener('mouseleave', () => {
+						clearTimeout(hoverTopTimer);
+					});
+				}
+
+				// Gatillo 2: Posicionar el cursor en la zona superior (Y <= 18px)
+				window.addEventListener('mousemove', (e) => {
+					if (e.clientY <= 18 && !isLabOpen) {
+						clearTimeout(hoverTopTimer);
+						hoverTopTimer = setTimeout(openLabDrawer, 160);
+					} else if (e.clientY > 80 && !isLabOpen) {
+						clearTimeout(hoverTopTimer);
+					}
+				});
+
+				// Gatillo 3: Botón 'Ficha de Laboratorio ▾' en el header
+				if (labBtn) {
+					labBtn.addEventListener('click', (e) => {
+						e.preventDefault();
+						if (isLabOpen) {
+							closeLabDrawer();
+						} else {
+							openLabDrawer();
+						}
+					});
+					labBtn.addEventListener('mouseenter', () => {
+						clearTimeout(hoverTopTimer);
+						hoverTopTimer = setTimeout(openLabDrawer, 140);
+					});
+				}
+
+				// Cierre 1: Botón [×] Cerrar
+				if (closePreloaderBtn) {
+					closePreloaderBtn.addEventListener('click', (e) => {
+						e.preventDefault();
+						closeLabDrawer();
+					});
+				}
+
+				// Cierre 2: Salir del panel negro con el ratón hacia abajo
+				preloader.addEventListener('mouseleave', (e) => {
+					if (isLabOpen && e.clientY > 100) {
+						closeLabDrawer();
+					}
+				});
+
+				// Cierre 3: Tecla Escape
+				window.addEventListener('keydown', (e) => {
+					if (e.key === 'Escape' && isLabOpen) {
+						closeLabDrawer();
+					}
+				});
+
+				// Cierre 4: Scroll con la rueda hacia abajo
+				window.addEventListener('wheel', (e) => {
+					if (isLabOpen && e.deltaY > 20) {
+						closeLabDrawer();
+					}
+				}, { passive: true });
 			} else {
 				animateHeroEntrance();
 			}
