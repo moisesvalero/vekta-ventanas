@@ -1,5 +1,6 @@
 {
   "buildCommand": "node scripts/build-static.mjs",
   "outputDirectory": "public",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "installCommand": "pnpm install --ignore-scripts"
 }
