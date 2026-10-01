@@ -30,7 +30,7 @@
 >
 > ### 📌 Aviso de Portfolio & Demostración Técnica
 >
-> Este proyecto es un **desarrollo conceptual de tema hijo para WordPress (GeneratePress)** creado con fines de **portfolio profesional, diseño frontend y demostración técnica** de nivel _Awwwards / FWA / CSS Design Awards_. **Vekta Systems no es una empresa comercial activa**; las marcas, sistemas, patentes y simuladores interactivos corresponden a una maqueta técnica de alto rendimiento.
+> Este proyecto es un **desarrollo conceptual de tema hijo para WordPress (GeneratePress)** creado con fines de **portfolio profesional, diseño frontend y demostración técnica** . **Vekta Systems no es una empresa comercial activa**; las marcas, sistemas, patentes y simuladores interactivos corresponden a una maqueta técnica de alto rendimiento.
 
 ---
 
