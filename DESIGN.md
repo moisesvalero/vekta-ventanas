@@ -1,6 +1,6 @@
 # Sistema de Diseño Arquitectónico: Vekta Systems
 
-## Dirección Creativa Awwwards / FWA / CSS Design Awards
+## Dirección Creativa de Vanguardia Arquitectónica
 
 ### 1. Concepto Central
 

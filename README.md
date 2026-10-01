@@ -30,7 +30,7 @@
 >
 > ### 📌 Aviso de Portfolio & Demostración Técnica
 >
-> Este proyecto es un **desarrollo conceptual de tema hijo para WordPress (GeneratePress)** creado con fines de **portfolio profesional, diseño frontend y demostración técnica** . **Vekta Systems no es una empresa comercial activa**; las marcas, sistemas, patentes y simuladores interactivos corresponden a una maqueta técnica de alto rendimiento.
+> Este proyecto es un **desarrollo conceptual de tema hijo para WordPress (GeneratePress)** creado con fines de **portfolio profesional, diseño frontend e ingeniería de interacción de alto rendimiento**. **Vekta Systems no es una empresa comercial activa**; las marcas, sistemas, patentes y simuladores interactivos corresponden a una maqueta técnica.
 
 ---
 
@@ -118,7 +118,7 @@ Este proyecto fue diseñado siguiendo un estricto filtro anti-patrones para alej
 vekta-ventanas/
 ├── style.css                 # Cabecera oficial del Child Theme (Template: generatepress)
 ├── functions.php             # Punto de entrada y carga modular
-├── front-page.php            # Plantilla completa de portada Awwwards (WordPress)
+├── front-page.php            # Plantilla completa de portada arquitectónica (WordPress)
 ├── index.php                 # Fallback estándar de WordPress
 ├── index.html                # Versión estática generada para Vercel
 ├── vercel.json               # Configuración de despliegue en Vercel
@@ -220,7 +220,10 @@ pnpm run format
 
 ## 📄 Licencia & Créditos
 
-- **Desarrollo y Dirección de Arte:** Creado por [Moisés Valero](https://github.com/moisesvalero) como proyecto de portfolio frontend y arquitectura web.
+- **Desarrollo y Dirección de Arte:** Diseñado y desarrollado por **[Moisés Valero](https://moisesvalero.es)** como proyecto de portfolio de ingeniería frontend y arquitectura de temas WordPress.
+  - 🌐 **Portfolio Personal:** [moisesvalero.es](https://moisesvalero.es)
+  - 💼 **LinkedIn:** [linkedin.com/in/moisesvalero](https://www.linkedin.com/in/moisesvalero/)
+  - 🐙 **GitHub:** [github.com/moisesvalero](https://github.com/moisesvalero)
 - **Tema Base:** [GeneratePress](https://generatepress.com) por Tom Usborne.
 - **Animaciones:** [GSAP](https://greensock.com) & [Lenis](https://lenis.darkroom.engineering/).
 - **Licencia:** MIT License. Libre para uso educativo, estudio y adaptación de código.

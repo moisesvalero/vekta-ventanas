@@ -1,7 +1,7 @@
 {
   "name": "vekta-ventanas",
   "version": "1.0.0",
-  "description": "Vekta Systems - Tema hijo para WordPress (GeneratePress) con nivel Awwwards/FWA",
+  "description": "Vekta Systems - Tema hijo para WordPress (GeneratePress) con ingeniería arquitectónica de alto rendimiento",
   "main": "index.js",
   "scripts": {
     "build": "node scripts/build-static.mjs",

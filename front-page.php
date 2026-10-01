@@ -1,8 +1,8 @@
 <?php
 /**
- * Template Name: Vekta Systems — Awwwards Architectural Showcase
+ * Template Name: Vekta Systems — Architectural Showcase
  * Front Page Template for Vekta Systems
- * Bespoke Awwwards / FWA / CSS Design Awards level craftsmanship.
+ * Bespoke high-performance architectural frontend craftsmanship.
  * Zero AI clichés: Monolithic, editorial, technical, silent.
  *
  * @package Vekta_Ventanas
@@ -19,12 +19,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 	<title><?php bloginfo( 'name' ); ?> — La Ventana Invisible | Perfil Mínimo & Passivhaus</title>
 	
-	<!-- Metadatos SEO Técnicos -->
-	<meta name="description" content="Vekta Systems: Ventanas de PVC de perfil mínimo y estándar Passivhaus. Transmitancia térmica Uw = 0.67 W/m²K y amortiguación acústica certificada de -52 dB.">
+	<!-- Favicons & Touch Icons -->
+	<link rel="icon" type="image/svg+xml" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/favicon.svg' ); ?>">
+	<link rel="alternate icon" type="image/png" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/favicon.png' ); ?>">
+	<link rel="apple-touch-icon" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/apple-touch-icon.png' ); ?>">
+
+	<!-- Metadatos SEO Técnicos & Open Graph -->
+	<meta name="description" content="Vekta Systems: Ventanas de PVC de perfil mínimo y estándar Passivhaus. Transmitancia térmica Uw = 0.67 W/m²K y amortiguación acústica certificada de -52 dB. Portfolio de ingeniería frontend por Moisés Valero.">
 	<meta property="og:title" content="Vekta Systems — La Ventana Invisible | Perfil Mínimo & Passivhaus">
-	<meta property="og:description" content="Ventanas de PVC técnico de alto rendimiento para arquitectura contemporánea. Aislamiento térmico extremo y silencio absoluto.">
+	<meta property="og:description" content="Tema hijo arquitectónico para WordPress (GeneratePress). Perfilería mínima embutida, transmitancia Uw 0.67 y estándar Passivhaus.">
 	<meta property="og:type" content="website">
-	<meta property="og:image" content="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/hero-architecture.jpg' ); ?>">
+	<meta property="og:url" content="https://vekta-ventanas.vercel.app">
+	<meta property="og:image" content="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/og-image.jpg' ); ?>">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:type" content="image/jpeg">
+	<meta property="og:locale" content="es_ES">
+
+	<!-- Twitter Cards -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Vekta Systems — La Ventana Invisible">
+	<meta name="twitter:description" content="Tema hijo arquitectónico de GeneratePress para WordPress. Ventanas de PVC de perfil mínimo y estándar Passivhaus. Por Moisés Valero.">
+	<meta name="twitter:image" content="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/og-image.jpg' ); ?>">
 
 	<!-- Preconexión de Fuentes -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -180,40 +196,79 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 
-	<!-- Zona de Gatillo Hover Superior (Deslizar Ficha de Laboratorio) -->
-	<div id="vk-top-hover-trigger" class="fixed top-0 left-0 right-0 h-3.5 z-[101] pointer-events-auto" title="Deslizar panel de laboratorio"></div>
-
 	<!-- Preloader / Panel Deslizable de Laboratorio Arquitectónico -->
-	<div id="vk-preloader" class="fixed inset-0 bg-graphite text-limestone z-[100] flex flex-col justify-between p-8 md:p-14 select-none shadow-2xl transition-shadow">
-		<div class="flex items-center justify-between font-mono text-xs text-lead border-b border-white/10 pb-4">
-			<div class="flex items-center space-x-2">
-				<span class="w-2 h-2 rounded-full bg-laser animate-pulse"></span>
-				<span class="tracking-widest">VEKTA SYSTEMS // ARCHITECTURAL LAB</span>
+	<div id="vk-preloader" class="fixed inset-0 bg-graphite text-limestone z-[100] flex flex-col justify-between p-6 sm:p-10 md:p-14 select-none shadow-2xl transition-shadow overflow-hidden">
+		<!-- Cruces de Registro Arquitectónicas en las 4 esquinas -->
+		<span class="absolute top-4 left-4 font-mono text-[11px] text-white/20 select-none pointer-events-none">+</span>
+		<span class="absolute top-4 right-4 font-mono text-[11px] text-white/20 select-none pointer-events-none">+</span>
+		<span class="absolute bottom-4 left-4 font-mono text-[11px] text-white/20 select-none pointer-events-none">+</span>
+		<span class="absolute bottom-4 right-4 font-mono text-[11px] text-white/20 select-none pointer-events-none">+</span>
+
+		<!-- Barra Superior Técnica del Preloader -->
+		<div class="flex items-center justify-between font-mono text-xs text-lead border-b border-white/10 pb-4 relative z-10">
+			<div class="flex items-center space-x-3">
+				<span class="relative flex h-2.5 w-2.5">
+					<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-laser opacity-75"></span>
+					<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-laser"></span>
+				</span>
+				<span class="tracking-widest text-white/90 uppercase font-semibold">VEKTA SYSTEMS // LAB DE PRECISIÓN</span>
+				<span class="hidden sm:inline-block font-mono text-[10px] text-white/40 border border-white/10 px-2 py-0.5">CORE v2.4</span>
 			</div>
 			<div class="flex items-center space-x-6">
-				<span>MADRID · 40.4168° N, 3.7038° W</span>
-				<button id="vk-close-preloader" class="hidden text-xs font-mono uppercase tracking-widest text-white/80 hover:text-laser border border-white/20 hover:border-laser px-3 py-1 transition-colors flex items-center space-x-1.5 cursor-pointer pointer-events-auto" aria-label="Cerrar panel de laboratorio">
+				<span class="hidden md:inline text-white/60">MADRID · 40.4168° N, 3.7038° W</span>
+				<button id="vk-close-preloader" class="hidden text-xs font-mono uppercase tracking-widest text-white/80 hover:text-laser border border-white/20 hover:border-laser px-3 py-1.5 transition-colors flex items-center space-x-1.5 cursor-pointer pointer-events-auto" aria-label="Cerrar panel de laboratorio">
 					<span>Cerrar</span>
 					<span class="text-laser font-bold">[×]</span>
 				</button>
 			</div>
 		</div>
 
-		<div class="max-w-4xl">
-			<span class="font-mono text-xs uppercase tracking-widest text-laser block mb-4">CALIBRANDO AISLAMIENTO TÉRMICO Y ACÚSTICO</span>
-			<h2 class="font-syne text-4xl sm:text-6xl md:text-7xl font-bold tracking-tighter uppercase leading-[0.92]">
-				EL SILENCIO<br>ES MATERIA.
+		<!-- Núcleo Editorial & Telemetría en Vivo -->
+		<div class="max-w-4xl relative z-10 my-auto py-8">
+			<div class="inline-flex items-center space-x-2 font-mono text-[11px] sm:text-xs tracking-[0.2em] text-laser uppercase mb-4 px-3 py-1 bg-laser/10 border border-laser/20">
+				<span class="w-1.5 h-1.5 rounded-full bg-laser"></span>
+				<span id="vk-preloader-phase-tag">FASE 01/04 · INICIALIZACIÓN TÉRMICA</span>
+			</div>
+			<h2 class="font-syne text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter uppercase leading-[0.92] text-white">
+				EL SILENCIO<br><span class="text-white/40">ES MATERIA.</span>
 			</h2>
+			<div class="mt-6 flex items-center space-x-3 font-mono text-xs sm:text-sm text-lead">
+				<span class="text-laser font-bold animate-pulse">&gt;</span>
+				<span id="vk-preloader-status-text" class="text-white/80 tracking-wide font-mono">Escaneando geometría multicámara de perfilería de 82mm...</span>
+			</div>
 		</div>
 
-		<div class="flex items-end justify-between border-t border-white/10 pt-6 font-mono text-xs">
-			<div>
-				<span class="block text-lead">ESTÁNDAR PASIVO PASSIVHAUS INSTITUT</span>
-				<span class="text-limestone">DIN EN ISO 10077-1 / UNE-EN 14351-1</span>
+		<!-- Barra de Progreso Métrica y Cotas Passivhaus -->
+		<div class="w-full relative z-10 pt-4">
+			<!-- Escala de Cotas Técnicas Superior a la Barra -->
+			<div class="w-full flex justify-between font-mono text-[10px] text-lead/60 mb-2 px-0.5 select-none">
+				<span>00% · VST-00</span>
+				<span class="hidden sm:inline">25% · GEOMETRÍA 7 CÁMARAS</span>
+				<span>50% · Uw 0.67 W/m²K</span>
+				<span class="hidden sm:inline">75% · ACÚSTICA Rw -52 dB</span>
+				<span>100% · PASSIVHAUS PHI</span>
 			</div>
-			<div class="text-right">
-				<span class="text-lead block">CALIBRACIÓN</span>
-				<span id="vk-preloader-count" class="font-syne text-3xl md:text-5xl font-bold text-laser tabular-nums">0%</span>
+
+			<!-- Pista y Barra Láser de Carga -->
+			<div class="w-full h-2.5 sm:h-3 bg-white/10 relative overflow-hidden rounded-full mb-6 p-[1px] border border-white/10">
+				<div id="vk-preloader-bar" class="h-full bg-laser rounded-full transition-all ease-out" style="width: 0%; box-shadow: 0 0 18px rgba(198, 255, 0, 0.75);"></div>
+			</div>
+
+			<!-- Fila Inferior de Información y Porcentaje Tabular -->
+			<div class="flex flex-col sm:flex-row sm:items-end justify-between border-t border-white/10 pt-6 font-mono text-xs gap-4">
+				<div>
+					<span class="block text-lead text-[10px] tracking-widest uppercase">ESTÁNDAR PASIVO PASSIVHAUS INSTITUT</span>
+					<span class="text-limestone text-xs">DIN EN ISO 10077-1 / UNE-EN 14351-1 / PHI DARMSTADT</span>
+				</div>
+				<div class="hidden lg:flex items-center space-x-8 text-lead text-xs">
+					<span>TRANSMITANCIA: <strong class="text-white font-mono">Uw 0.67 W/m²K</strong></span>
+					<span>ATENUACIÓN: <strong class="text-white font-mono">Rw -52 dB</strong></span>
+					<span>HERMETICIDAD: <strong class="text-white font-mono">CLASE 4</strong></span>
+				</div>
+				<div class="text-left sm:text-right">
+					<span class="text-lead block text-[10px] tracking-widest uppercase">CALIBRACIÓN</span>
+					<span id="vk-preloader-count" class="font-syne text-4xl sm:text-5xl md:text-6xl font-bold text-laser tabular-nums tracking-tighter leading-none">000%</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -237,13 +292,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span class="hidden sm:inline">PRODUCCIÓN ROBOTIZADA ACTIVA</span>
 				</div>
 				<div class="flex items-center space-x-6">
-					<button id="vk-trigger-lab-btn" class="hidden md:inline-flex items-center space-x-1.5 text-lead hover:text-graphite font-mono text-[11px] transition-colors cursor-pointer group" title="Deslizar ficha de laboratorio">
+					<button id="vk-trigger-lab-btn" class="inline-flex items-center space-x-1.5 text-lead hover:text-graphite font-mono text-[11px] transition-colors cursor-pointer group" title="Deslizar ficha de laboratorio">
 						<span class="w-1.5 h-1.5 rounded-full bg-laser group-hover:scale-125 transition-transform"></span>
-						<span class="underline decoration-dotted">Ficha de Laboratorio ▾</span>
+						<span class="underline decoration-dotted font-semibold">Ficha de Laboratorio ▾</span>
 					</button>
 					<span class="hidden md:inline text-graphite/30">|</span>
 					<span class="hidden md:inline">TRANSMITANCIA MÍNIMA: <strong class="text-graphite">Uw 0.67</strong> W/m²K</span>
-					<span class="text-graphite font-semibold">TEL: +34 900 831 240</span>
+					<span class="text-graphite font-semibold font-mono text-[11px]">TEL: +34 900 000 000 (DEMO)</span>
 				</div>
 			</div>
 
@@ -338,7 +393,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					<div class="mt-8 pt-4 border-t border-graphite/10 flex items-center justify-between text-[11px] font-mono text-lead">
 						<span>CERTIFICACIÓN PHI DARMSTADT</span>
-						<span class="w-2 h-2 rounded-full bg-pine"></span>
+						<button class="vk-open-lab-drawer text-graphite hover:text-pine font-bold underline decoration-dotted transition-colors cursor-pointer flex items-center space-x-1" title="Ver Ficha de Laboratorio">
+							<span>Ficha Lab</span>
+							<span>▾</span>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -677,33 +735,53 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<!-- Diagrama Técnico Interactivo con Hotspots -->
 				<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-black/50 border border-white/10 p-8 md:p-12">
 					
-					<!-- Columna Gráfica / Corte Vectorial -->
-					<div class="lg:col-span-7 relative flex items-center justify-center p-6 border border-white/5 bg-white/[0.02]">
-						<div class="relative w-full max-w-md aspect-square flex items-center justify-center">
-							<!-- Diagrama Vectorial de la Sección de Perfil -->
-							<svg viewBox="0 0 400 400" class="w-full h-full text-white/80" fill="none" stroke="currentColor">
-								<!-- Marco Perimetral -->
-								<rect x="50" y="40" width="300" height="320" stroke-width="2" class="stroke-white/30" />
-								<!-- Cámaras Interiores de Aire -->
-								<rect x="80" y="70" width="70" height="50" stroke-width="1.5" class="stroke-white/50" />
-								<rect x="170" y="70" width="70" height="50" stroke-width="1.5" class="stroke-white/50" />
-								<rect x="260" y="70" width="60" height="50" stroke-width="1.5" class="stroke-white/50" />
-								<rect x="80" y="140" width="100" height="80" stroke-width="2" class="stroke-laser" />
-								<rect x="200" y="140" width="120" height="80" stroke-width="1.5" class="stroke-white/50" />
-								<rect x="80" y="240" width="240" height="80" stroke-width="1.5" class="stroke-white/50" />
+					<!-- Columna Gráfica / Corte Real de Perfilería Multicámara -->
+					<div class="lg:col-span-7 relative flex items-center justify-center p-4 sm:p-6 border border-white/10 bg-black/60 overflow-hidden group">
+						<div class="relative w-full max-w-lg aspect-square flex items-center justify-center overflow-hidden border border-white/10 shadow-2xl">
+							<!-- Imagen Real de Sección de Perfil Cortado -->
+							<img 
+								src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/perfil-corte-camaras.jpg' ); ?>" 
+								alt="Sección transversal real de perfil de ventana multicámara Passivhaus" 
+								class="w-full h-full object-cover select-none pointer-events-none transition-transform duration-700 group-hover:scale-105"
+								width="600"
+								height="600"
+								loading="lazy"
+							/>
 
-								<!-- Refuerzo de Acero Galvanizado -->
-								<rect x="95" y="155" width="70" height="50" stroke-dasharray="4 2" stroke-width="1.5" class="stroke-white/80" />
-							</svg>
+							<!-- Retícula de Metrología y Filtro Técnico Sutil -->
+							<div class="absolute inset-0 bg-gradient-to-t from-graphite/80 via-transparent to-graphite/40 pointer-events-none"></div>
+							
+							<!-- Etiqueta Técnica de Laboratorio -->
+							<div class="absolute top-4 left-4 z-10 flex items-center space-x-2 bg-graphite/85 backdrop-blur-md px-3 py-1.5 border border-white/15">
+								<span class="w-1.5 h-1.5 rounded-full bg-laser animate-pulse"></span>
+								<span class="font-mono text-[10px] tracking-widest uppercase text-white font-semibold">ESCANEO SECCIONAL · 1:1 CNC</span>
+							</div>
 
-							<!-- Hotspots Interactivos -->
-							<button class="vk-hotspot absolute top-[28%] left-[22%] w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-laser/20 border border-laser text-laser font-mono text-xs flex items-center justify-center hover:scale-125 transition-transform" data-point="1" aria-label="Ver detalle punto 1: Cámaras térmicas">01</button>
-							
-							<button class="vk-hotspot absolute top-[45%] left-[30%] w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-laser/20 border border-laser text-laser font-mono text-xs flex items-center justify-center hover:scale-125 transition-transform" data-point="2" aria-label="Ver detalle punto 2: Refuerzo galvanizado">02</button>
-							
-							<button class="vk-hotspot absolute top-[68%] left-[50%] w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-laser/20 border border-laser text-laser font-mono text-xs flex items-center justify-center hover:scale-125 transition-transform" data-point="3" aria-label="Ver detalle punto 3: Triple junta EPDM">03</button>
-							
-							<button class="vk-hotspot absolute top-[28%] left-[70%] w-7 h-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-laser/20 border border-laser text-laser font-mono text-xs flex items-center justify-center hover:scale-125 transition-transform" data-point="4" aria-label="Ver detalle punto 4: Triple acristalamiento">04</button>
+							<!-- Crucetas de Medición Óptica en las Esquinas -->
+							<span class="absolute top-2 right-2 font-mono text-[11px] text-laser select-none pointer-events-none">+</span>
+							<span class="absolute bottom-2 left-2 font-mono text-[11px] text-laser select-none pointer-events-none">+</span>
+							<span class="absolute bottom-2 right-2 font-mono text-[11px] text-laser select-none pointer-events-none">+</span>
+
+							<!-- Hotspots Interactivos Posicionados sobre la Anatomía Real -->
+							<!-- 01: Cámaras Celulares de Aislamiento -->
+							<button class="vk-hotspot absolute top-[72%] left-[78%] w-8 h-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-laser text-graphite border-2 border-laser font-mono text-xs font-bold flex items-center justify-center shadow-[0_0_15px_rgba(198,255,0,0.5)] hover:scale-125 transition-all cursor-pointer z-20" data-point="1" aria-label="Ver detalle punto 1: 7 Cámaras térmicas">
+								<span>01</span>
+							</button>
+
+							<!-- 02: Alma Central de Refuerzo de Acero Galvanizado -->
+							<button class="vk-hotspot absolute top-[45%] left-[48%] w-8 h-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-graphite/80 text-laser border border-laser font-mono text-xs font-bold flex items-center justify-center hover:bg-laser hover:text-graphite hover:scale-125 transition-all cursor-pointer z-20" data-point="2" aria-label="Ver detalle punto 2: Refuerzo galvanizado">
+								<span>02</span>
+							</button>
+
+							<!-- 03: Triple Junta Perimetral EPDM -->
+							<button class="vk-hotspot absolute top-[68%] left-[58%] w-8 h-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-graphite/80 text-laser border border-laser font-mono text-xs font-bold flex items-center justify-center hover:bg-laser hover:text-graphite hover:scale-125 transition-all cursor-pointer z-20" data-point="3" aria-label="Ver detalle punto 3: Triple junta EPDM">
+								<span>03</span>
+							</button>
+
+							<!-- 04: Triple Vidrio con Gas Argón -->
+							<button class="vk-hotspot absolute top-[50%] left-[18%] w-8 h-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-graphite/80 text-laser border border-laser font-mono text-xs font-bold flex items-center justify-center hover:bg-laser hover:text-graphite hover:scale-125 transition-all cursor-pointer z-20" data-point="4" aria-label="Ver detalle punto 4: Triple acristalamiento">
+								<span>04</span>
+							</button>
 						</div>
 					</div>
 
@@ -980,7 +1058,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<p class="leading-relaxed">
 							C/ Arquitectura 14, Polígono Tecnológico<br>
 							28001 Madrid, España<br>
-							Tel: +34 900 831 240<br>
+							Tel: +34 900 000 000 (Ficticio / Demo)<br>
 							Mail: ingenieria@vekta.es
 						</p>
 					</div>
@@ -1016,10 +1094,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<!-- Disclaimer de Portfolio & Demostración Técnica (Tema Hijo WordPress) -->
-				<div class="border-t border-white/10 pt-6 pb-2 text-center sm:text-left">
+				<div class="border-t border-white/10 pt-6 pb-6 text-center sm:text-left">
 					<p class="font-mono text-[11px] text-lead leading-relaxed">
-						<strong class="text-white uppercase tracking-wider">Aviso de Portfolio & Demostración Técnica:</strong> Este sitio web es un proyecto conceptual desarrollado como <strong>tema hijo para WordPress (GeneratePress)</strong> con fines de portfolio y experimentación UI/UX de nivel Awwwards. <span class="text-laser">Vekta Systems no es una empresa comercial activa</span>; todos los datos, logotipos y especificaciones corresponden a un prototipo interactivo de alto rendimiento.
+						<strong class="text-white uppercase tracking-wider">Aviso de Portfolio & Demostración Técnica:</strong> Este sitio web es un proyecto conceptual desarrollado como <strong>tema hijo para WordPress (GeneratePress)</strong> con fines de portfolio profesional y experimentación técnica UI/UX. <span class="text-laser">Vekta Systems no es una empresa comercial activa</span>; todos los datos, logotipos y especificaciones corresponden a un prototipo interactivo de alto rendimiento.
 					</p>
+				</div>
+
+				<!-- Franja de Autor & Enlaces de Portfolio y Redes Sociales -->
+				<div class="border-t border-white/10 pt-6 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+					<div class="flex items-center space-x-2.5">
+						<span class="w-2 h-2 rounded-full bg-laser animate-pulse"></span>
+						<span class="font-mono text-xs text-white uppercase tracking-wider font-semibold">Diseño & Desarrollo: Moisés Valero</span>
+					</div>
+					<div class="flex flex-wrap items-center gap-3 font-mono text-xs">
+						<a href="https://moisesvalero.es" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-white/5 border border-white/15 hover:border-laser text-white hover:text-laser transition-all group">
+							<svg class="w-3.5 h-3.5 text-laser group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+							<span class="font-semibold">moisesvalero.es</span>
+							<span class="text-[10px] text-lead group-hover:text-laser">↗</span>
+						</a>
+						<a href="https://www.linkedin.com/in/moisesvalero/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-white/5 border border-white/15 hover:border-laser text-white hover:text-laser transition-all group">
+							<svg class="w-3.5 h-3.5 fill-current text-white group-hover:text-laser transition-colors" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+							<span>LinkedIn</span>
+							<span class="text-[10px] text-lead group-hover:text-laser">↗</span>
+						</a>
+						<a href="https://github.com/moisesvalero" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-white/5 border border-white/15 hover:border-laser text-white hover:text-laser transition-all group">
+							<svg class="w-3.5 h-3.5 fill-current text-white group-hover:text-laser transition-colors" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+							<span>GitHub</span>
+							<span class="text-[10px] text-lead group-hover:text-laser">↗</span>
+						</a>
+					</div>
 				</div>
 
 				<div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center font-mono text-[11px] text-lead gap-4">
@@ -1107,20 +1210,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 			// 3. Preloader Editorial Animado & Panel Desplegable Superior
 			const preloader = document.getElementById('vk-preloader');
 			const preloaderCount = document.getElementById('vk-preloader-count');
+			const preloaderBar = document.getElementById('vk-preloader-bar');
+			const phaseTag = document.getElementById('vk-preloader-phase-tag');
+			const statusText = document.getElementById('vk-preloader-status-text');
 			const closePreloaderBtn = document.getElementById('vk-close-preloader');
-			const topTrigger = document.getElementById('vk-top-hover-trigger');
 			const labBtn = document.getElementById('vk-trigger-lab-btn');
 
 			let isLabOpen = false;
-			let hoverTopTimer = null;
 
 			function openLabDrawer() {
 				if (!preloader || isLabOpen) return;
 				isLabOpen = true;
+				if (phaseTag) phaseTag.textContent = 'FICHA DE LABORATORIO // SISTEMA EN LÍNEA';
+				if (statusText) statusText.textContent = 'Especificaciones técnicas certificadas Passivhaus Institut Darmstadt.';
+				if (preloaderBar) preloaderBar.style.width = '100%';
+				if (preloaderCount) preloaderCount.textContent = '100%';
+				if (closePreloaderBtn) closePreloaderBtn.classList.remove('hidden');
+
 				gsap.killTweensOf(preloader);
 				gsap.to(preloader, {
 					yPercent: 0,
-					duration: 0.7,
+					duration: 0.75,
 					ease: "power4.out",
 					onStart: () => {
 						preloader.style.pointerEvents = 'auto';
@@ -1134,7 +1244,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				gsap.killTweensOf(preloader);
 				gsap.to(preloader, {
 					yPercent: -100,
-					duration: 0.6,
+					duration: 0.65,
 					ease: "power4.inOut",
 					onComplete: () => {
 						preloader.style.pointerEvents = 'none';
@@ -1145,52 +1255,56 @@ if ( ! defined( 'ABSPATH' ) ) {
 			if (preloader) {
 				if (prefersReduced) {
 					preloader.style.display = 'none';
+					animateHeroEntrance();
 				} else {
 					const counterObj = { val: 0 };
 					gsap.to(counterObj, {
 						val: 100,
-						duration: 1.2,
-						ease: "power2.out",
+						duration: 2.8,
+						ease: "power2.inOut",
 						onUpdate: () => {
-							if (preloaderCount) preloaderCount.textContent = Math.round(counterObj.val) + '%';
+							const p = Math.round(counterObj.val);
+							if (preloaderCount) {
+								preloaderCount.textContent = String(p).padStart(3, '0') + '%';
+							}
+							if (preloaderBar) {
+								preloaderBar.style.width = p + '%';
+							}
+							if (p < 25) {
+								if (phaseTag) phaseTag.textContent = 'FASE 01/04 · GEOMETRÍA MULTICÁMARA';
+								if (statusText) statusText.textContent = 'Escaneando extrusión de 82mm y 7 cámaras desacopladas...';
+							} else if (p < 55) {
+								if (phaseTag) phaseTag.textContent = 'FASE 02/04 · TRANSMITANCIA TÉRMICA';
+								if (statusText) statusText.textContent = 'Calibrando gas argón al 90% y transmitancia Uw 0.67 W/m²K...';
+							} else if (p < 85) {
+								if (phaseTag) phaseTag.textContent = 'FASE 03/04 · ENSAYO ACÚSTICO';
+								if (statusText) statusText.textContent = 'Verificando atenuación Rw -52 dB en cámara anecoica...';
+							} else if (p < 100) {
+								if (phaseTag) phaseTag.textContent = 'FASE 04/04 · CERTIFICACIÓN PASSIVHAUS';
+								if (statusText) statusText.textContent = 'Comprobando hermeticidad Clase 4 bajo norma UNE-EN 12207...';
+							} else {
+								if (phaseTag) phaseTag.textContent = 'CALIBRACIÓN COMPLETADA · PASSIVHAUS READY';
+								if (statusText) statusText.textContent = 'SISTEMA OPERATIVO // ENVOLVENTE TÉRMICA LISTA.';
+							}
 						},
 						onComplete: () => {
-							gsap.to(preloader, {
-								yPercent: -100,
-								duration: 0.9,
-								ease: "power4.inOut",
-								onComplete: () => {
-									preloader.style.pointerEvents = 'none';
-									if (closePreloaderBtn) closePreloaderBtn.classList.remove('hidden');
-									animateHeroEntrance();
-								}
+							gsap.delayedCall(0.35, () => {
+								gsap.to(preloader, {
+									yPercent: -100,
+									duration: 0.95,
+									ease: "power4.inOut",
+									onComplete: () => {
+										preloader.style.pointerEvents = 'none';
+										if (closePreloaderBtn) closePreloaderBtn.classList.remove('hidden');
+										animateHeroEntrance();
+									}
+								});
 							});
 						}
 					});
 				}
 
-				// Gatillo 1: Zona superior de la pantalla (dejar cursor arriba)
-				if (topTrigger) {
-					topTrigger.addEventListener('mouseenter', () => {
-						clearTimeout(hoverTopTimer);
-						hoverTopTimer = setTimeout(openLabDrawer, 120);
-					});
-					topTrigger.addEventListener('mouseleave', () => {
-						clearTimeout(hoverTopTimer);
-					});
-				}
-
-				// Gatillo 2: Posicionar el cursor en la zona superior (Y <= 18px)
-				window.addEventListener('mousemove', (e) => {
-					if (e.clientY <= 18 && !isLabOpen) {
-						clearTimeout(hoverTopTimer);
-						hoverTopTimer = setTimeout(openLabDrawer, 160);
-					} else if (e.clientY > 80 && !isLabOpen) {
-						clearTimeout(hoverTopTimer);
-					}
-				});
-
-				// Gatillo 3: Botón 'Ficha de Laboratorio ▾' en el header
+				// Gatillo 1: Botón 'Ficha de Laboratorio ▾' en el header
 				if (labBtn) {
 					labBtn.addEventListener('click', (e) => {
 						e.preventDefault();
@@ -1200,11 +1314,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 							openLabDrawer();
 						}
 					});
-					labBtn.addEventListener('mouseenter', () => {
-						clearTimeout(hoverTopTimer);
-						hoverTopTimer = setTimeout(openLabDrawer, 140);
-					});
 				}
+
+				// Gatillo 2: Botón 'Ficha Lab' en la tarjeta técnica del Hero u otros elementos
+				document.querySelectorAll('.vk-open-lab-drawer').forEach((btn) => {
+					btn.addEventListener('click', (e) => {
+						e.preventDefault();
+						if (isLabOpen) {
+							closeLabDrawer();
+						} else {
+							openLabDrawer();
+						}
+					});
+				});
 
 				// Cierre 1: Botón [×] Cerrar
 				if (closePreloaderBtn) {

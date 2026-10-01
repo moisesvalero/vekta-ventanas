@@ -47,6 +47,14 @@ if (fs.existsSync(assetsDir)) {
   fs.cpSync(assetsDir, publicAssetsDir, { recursive: true });
 }
 
+// Copiar favicon.ico a la raíz de public
+if (fs.existsSync(path.join(rootDir, "favicon.ico"))) {
+  fs.copyFileSync(
+    path.join(rootDir, "favicon.ico"),
+    path.join(publicDir, "favicon.ico"),
+  );
+}
+
 console.log(
   "✓ index.html y directorio public/ generados con éxito para despliegue.",
 );

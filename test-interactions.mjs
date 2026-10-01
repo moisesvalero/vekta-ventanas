@@ -3,7 +3,7 @@ import { chromium } from "playwright";
 const TARGET_URL = process.env.TEST_URL || "https://vekta-ventanas.vercel.app";
 
 async function runTests() {
-  console.log(`🚀 Iniciando tests de interacción Awwwards en ${TARGET_URL}...`);
+  console.log(`🚀 Iniciando tests de interacción en ${TARGET_URL}...`);
   const browser = await chromium.launch({ headless: true });
 
   // Contexto Desktop (1440x900)
@@ -26,7 +26,16 @@ async function runTests() {
   console.log("✓ Página cargada correctamente.");
 
   // Esperar a que el preloader finalice y revele el contenido
-  await page.waitForTimeout(2800);
+  await page.waitForFunction(
+    () => {
+      const el = document.getElementById("vk-preloader");
+      if (!el) return true;
+      const matrix = new DOMMatrix(window.getComputedStyle(el).transform);
+      return matrix.m42 < -100;
+    },
+    { timeout: 10000 },
+  );
+  await page.waitForTimeout(600);
 
   // Verificación de imágenes locales (naturalWidth > 0 y sin errores de red)
   console.log("\n--- Verificando Imágenes Locales ---");
@@ -76,22 +85,44 @@ async function runTests() {
   });
 
   // 0. Probar Panel Deslizable Superior (Ficha de Laboratorio)
-  console.log(
-    "\n--- Probando Panel Deslizable Superior (Ficha de Laboratorio) ---",
-  );
+  console.log("\n--- Probando que el cursor superior YA NO abre el panel ---");
   const preloader = page.locator("#vk-preloader");
 
-  // Mover cursor a la zona superior (Y = 5px)
+  // Mover cursor a la zona superior (Y = 5px) -> Debe permanecer CERRADO
   await page.mouse.move(700, 5);
   await page.waitForTimeout(600);
-  const isPreloaderDown = await preloader.evaluate((el) => {
+  const isStillClosedOnHover = await preloader.evaluate((el) => {
     const matrix = new DOMMatrix(window.getComputedStyle(el).transform);
-    return Math.abs(matrix.m42) < 15; // yPercent: 0
+    return matrix.m42 < -100;
   });
   console.log(
-    "Panel deslizado hacia abajo al posar cursor arriba:",
+    "Panel permanece cerrado al posar cursor arriba (Y = 5px):",
+    isStillClosedOnHover,
+  );
+  if (!isStillClosedOnHover) {
+    throw new Error("El panel no debería abrirse al posar el cursor arriba.");
+  }
+
+  // Abrir panel pulsando deliberadamente el botón 'Ficha de Laboratorio ▾'
+  console.log(
+    "\n--- Probando Apertura Manual del Panel mediante Botón 'Ficha de Laboratorio ▾' ---",
+  );
+  const labBtn = page.locator("#vk-trigger-lab-btn");
+  await labBtn.click();
+  await page.waitForTimeout(800);
+  const isPreloaderDown = await preloader.evaluate((el) => {
+    const matrix = new DOMMatrix(window.getComputedStyle(el).transform);
+    return Math.abs(matrix.m42) < 25; // yPercent: 0
+  });
+  console.log(
+    "Panel deslizado hacia abajo al pulsar el botón:",
     isPreloaderDown,
   );
+  if (!isPreloaderDown) {
+    throw new Error(
+      "El panel de laboratorio debería abrirse al hacer clic en el botón.",
+    );
+  }
 
   await page.screenshot({
     path: "screenshot-lab-drawer-open.png",
@@ -104,9 +135,12 @@ async function runTests() {
   await page.waitForTimeout(700);
   const isPreloaderClosed = await preloader.evaluate((el) => {
     const matrix = new DOMMatrix(window.getComputedStyle(el).transform);
-    return matrix.m42 < -200; // yPercent: -100
+    return matrix.m42 < -100; // yPercent: -100
   });
   console.log("Panel cerrado tras pulsar [×]:", isPreloaderClosed);
+  if (!isPreloaderClosed) {
+    throw new Error("El panel no se cerró tras pulsar el botón [×].");
+  }
 
   // 1. Probar Freno Acústico
   console.log("\n--- Probando Freno Acústico y Osciloscopio ---");
@@ -169,7 +203,54 @@ async function runTests() {
   );
   console.log("Reducción Uw tras selección:", await resUw.textContent());
 
-  // Capturar Catálogo de Sistemas
+  // Verificación de Favicon y Metadatos OG Image
+  console.log("\n--- Verificando Favicon y Open Graph ---");
+  const faviconHref = await page
+    .locator('link[rel="icon"]')
+    .getAttribute("href");
+  console.log("Favicon href:", faviconHref);
+  if (!faviconHref || !faviconHref.includes("favicon")) {
+    throw new Error("No se encontró el link rel='icon' del favicon.");
+  }
+  const ogImageContent = await page
+    .locator('meta[property="og:image"]')
+    .getAttribute("content");
+  console.log("OG Image content:", ogImageContent);
+  if (!ogImageContent || !ogImageContent.includes("og-image.jpg")) {
+    throw new Error(
+      "No se encontró la etiqueta meta og:image apuntando a og-image.jpg.",
+    );
+  }
+  console.log("✓ Favicon y OG Image correctamente configurados.");
+
+  // Verificación de Teléfono Demo y Enlaces de Redes/Portfolio en Footer
+  console.log("\n--- Verificando Teléfono Demo y Enlaces de Portfolio ---");
+  const headerPhoneText = await page.locator("header").innerText();
+  if (!headerPhoneText.includes("+34 900 000 000")) {
+    throw new Error(
+      "El teléfono del header no se ha actualizado al número demo ficticio.",
+    );
+  }
+  console.log("✓ Teléfono demo en header verificado (+34 900 000 000).");
+
+  const portfolioLink = await page
+    .locator('footer a[href*="moisesvalero.es"]')
+    .count();
+  const linkedinLink = await page
+    .locator('footer a[href*="linkedin.com/in/moisesvalero"]')
+    .count();
+  const githubLink = await page
+    .locator('footer a[href*="github.com/moisesvalero"]')
+    .count();
+  console.log(
+    `Enlaces encontrados en footer -> Portfolio: ${portfolioLink}, LinkedIn: ${linkedinLink}, GitHub: ${githubLink}`,
+  );
+  if (portfolioLink === 0 || linkedinLink === 0 || githubLink === 0) {
+    throw new Error("Faltan enlaces a redes o portfolio en el footer.");
+  }
+  console.log(
+    "✓ Enlaces de autor (moisesvalero.es, LinkedIn, GitHub) verificados en el footer.",
+  );
   const sistemasSec = page.locator("#sistemas");
   await sistemasSec.scrollIntoViewIfNeeded();
   await page.waitForTimeout(400);
@@ -202,8 +283,16 @@ async function runTests() {
   });
   const mobilePage = await mobileContext.newPage();
   await mobilePage.goto(TARGET_URL, { waitUntil: "networkidle" });
-  await mobilePage.waitForTimeout(2800);
-  await mobilePage.evaluate(() => window.scrollTo(0, 0));
+  await mobilePage.waitForFunction(
+    () => {
+      const el = document.getElementById("vk-preloader");
+      if (!el) return true;
+      const matrix = new DOMMatrix(window.getComputedStyle(el).transform);
+      return matrix.m42 < -100;
+    },
+    { timeout: 10000 },
+  );
+  await mobilePage.waitForTimeout(400);
   await mobilePage.waitForTimeout(300);
   await mobilePage.screenshot({
     path: "screenshot-mobile-375-hero.png",
