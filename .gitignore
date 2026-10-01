@@ -17,3 +17,5 @@ vendor-parent/
 screenshot-*.png
 design-system/
 pnpm-workspace.yaml
+.vercel
+public/

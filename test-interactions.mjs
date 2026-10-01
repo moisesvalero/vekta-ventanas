@@ -1,9 +1,9 @@
 import { chromium } from "playwright";
 
+const TARGET_URL = process.env.TEST_URL || "https://vekta-ventanas.vercel.app";
+
 async function runTests() {
-  console.log(
-    "🚀 Iniciando tests de interacción Awwwards en http://127.0.0.1:9400...",
-  );
+  console.log(`🚀 Iniciando tests de interacción Awwwards en ${TARGET_URL}...`);
   const browser = await chromium.launch({ headless: true });
 
   // Contexto Desktop (1440x900)
@@ -22,7 +22,7 @@ async function runTests() {
     consoleErrors.push(err.message);
   });
 
-  await page.goto("http://127.0.0.1:9400", { waitUntil: "networkidle" });
+  await page.goto(TARGET_URL, { waitUntil: "networkidle" });
   console.log("✓ Página cargada correctamente.");
 
   // Esperar a que el preloader finalice y revele el contenido
@@ -201,7 +201,7 @@ async function runTests() {
       "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1",
   });
   const mobilePage = await mobileContext.newPage();
-  await mobilePage.goto("http://127.0.0.1:9400", { waitUntil: "networkidle" });
+  await mobilePage.goto(TARGET_URL, { waitUntil: "networkidle" });
   await mobilePage.waitForTimeout(2800);
   await mobilePage.evaluate(() => window.scrollTo(0, 0));
   await mobilePage.waitForTimeout(300);

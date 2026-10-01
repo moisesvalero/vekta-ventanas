@@ -1,10 +1,14 @@
 {
   "name": "vekta-ventanas",
   "version": "1.0.0",
-  "description": "",
+  "description": "Vekta Systems - Tema hijo para WordPress (GeneratePress) con nivel Awwwards/FWA",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node scripts/build-static.mjs",
+    "dev": "wp-playground-cli start --port=9400 --skip-browser --blueprint=blueprint.json --mount=\"$(pwd)/vendor-parent/generatepress:/wordpress/wp-content/themes/generatepress\"",
+    "test": "node test-interactions.mjs",
+    "lint": "oxlint test-interactions.mjs scripts/build-static.mjs",
+    "format": "prettier --write DESIGN.md README.md test-interactions.mjs scripts/build-static.mjs package.json assets/css/*.css"
   },
   "keywords": [],
   "author": "",
